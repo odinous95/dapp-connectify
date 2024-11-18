@@ -9,13 +9,13 @@ type Props = {
   iconSize?: number;
 };
 
-export const Heading = ({
+export default function Heading({
   title,
   subtitle,
   center,
   icon: Icon,
   iconSize,
-}: Props) => {
+}: Props) {
   return (
     <div className={center ? "text-center" : "text-start"}>
       {Icon && <Icon size={iconSize || 24} />}{" "}
@@ -25,4 +25,4 @@ export const Heading = ({
       )}
     </div>
   );
-};
+}

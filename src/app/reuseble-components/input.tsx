@@ -12,7 +12,7 @@ type Props = {
   onBlur?: () => void;
 };
 
-export const Input = ({
+export default function Input({
   id,
   label,
   placeholder,
@@ -21,7 +21,7 @@ export const Input = ({
   register,
   onFocus,
   onBlur,
-}: Props) => {
+}: Props) {
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -61,4 +61,4 @@ export const Input = ({
       </label>
     </div>
   );
-};
+}
