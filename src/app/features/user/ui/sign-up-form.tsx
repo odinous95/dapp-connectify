@@ -1,15 +1,12 @@
 "use client";
-import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormState } from "react-dom";
-import { signupAction } from "../actions/signupAction";
-import { SubmitButton } from "./submit-btn";
 import { SignUpFieldValues, signUpSchema } from "./zod-validation";
 import Heading from "@/app/reuseble-components/heading";
 import Input from "@/app/reuseble-components/input";
+import { signupAction } from "../actions";
 
 export default function SignUpForm() {
   const [state, formAction] = useFormState(signupAction, null);
@@ -47,7 +44,7 @@ export default function SignUpForm() {
               {state?.errors && JSON.stringify(state.errors.password)}
             </span>
 
-            <SubmitButton />
+            <button type="submit">Sign Up</button>
           </form>
         </div>
         <div className="flex flex-col py-10">
