@@ -30,8 +30,7 @@ export function createService(repository: Repository) {
           errors: errorMessages,
         };
       }
-
-      repository.signupUserInDb(email, password, name);
+      repository.signupUserInDb(userValidated.data);
     },
   };
 }

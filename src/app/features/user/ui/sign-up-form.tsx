@@ -2,14 +2,15 @@
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFormState } from "react-dom";
 import { SignUpFieldValues, signUpSchema } from "./zod-validation";
 import Heading from "@/app/reuseble-components/heading";
 import Input from "@/app/reuseble-components/input";
+import { SubmitButton } from "./submit-button";
 import { signupAction } from "../actions";
+import { useActionState } from "react";
 
 export default function SignUpForm() {
-  const [state, formAction] = useFormState(signupAction, null);
+  const [state, formAction] = useActionState(signupAction, null);
   const {
     register,
     formState: { errors },
@@ -44,7 +45,7 @@ export default function SignUpForm() {
               {state?.errors && JSON.stringify(state.errors.password)}
             </span>
 
-            <button type="submit">Sign Up</button>
+            <SubmitButton />
           </form>
         </div>
         <div className="flex flex-col py-10">

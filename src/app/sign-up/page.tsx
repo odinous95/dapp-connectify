@@ -1,3 +1,5 @@
+import SignUpForm from "../features/user/ui/sign-up-form";
+
 export default function SignUp() {
-  return <div>Sign up</div>;
+  return <SignUpForm />;
 }
