@@ -1,5 +1,5 @@
-import { db } from "@/app/drizzle-db";
-import { userTable } from "@/app/drizzle-db/schema";
+import { db } from "@/drizzle-db";
+import { userTable } from "@/drizzle-db/schema";
 import { USER } from "./types";
 
 export function createRepository() {

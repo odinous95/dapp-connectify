@@ -1,5 +1,5 @@
 import { Repository } from "./repository";
-import { signUpSchema } from "./ui/zod-validation";
+import { signUpSchema } from "../../../zod/zod-validation";
 
 export function createService(repository: Repository) {
   return {

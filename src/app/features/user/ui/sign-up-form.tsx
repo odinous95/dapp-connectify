@@ -2,7 +2,10 @@
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignUpFieldValues, signUpSchema } from "./zod-validation";
+import {
+  SignUpFieldValues,
+  signUpSchema,
+} from "../../../../zod/zod-validation";
 import Heading from "@/app/reuseble-components/heading";
 import Input from "@/app/reuseble-components/input";
 import { SubmitButton } from "./submit-button";
