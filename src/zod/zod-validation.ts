@@ -19,6 +19,7 @@ const passwordSchema = z
     (val) => /[!@#$%^&*(),.?":{}|<>]/.test(val),
     "Your password must contain at least one special character!"
   );
+
 export const signUpSchema = z.object({
   name: nameSchema,
   email: emailSchema,

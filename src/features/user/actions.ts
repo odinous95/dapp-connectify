@@ -2,15 +2,24 @@
 import { redirect } from "next/navigation";
 import { userFeature } from "./instance";
 
-export async function signupAction(prevState: any, formData: FormData) {
+type SignupErrors = {
+  email?: string;
+  name?: string;
+  password?: string;
+};
+
+export async function signupAction(
+  state: { success: boolean; message: string; errors: SignupErrors },
+  payload: FormData
+) {
   try {
-    userFeature.service.signup(formData);
-  } catch (errors: any) {
+    userFeature.service.signup(payload);
+  } catch (errors: unknown) {
     console.error("Signup Error:", errors);
     return {
       success: false,
-      message: "An unexpected error occurred during sign up. Please try again.",
-      errors: errors,
+      message: "Signup failed",
+      errors: errors as SignupErrors,
     };
   }
   redirect("/sign-in");

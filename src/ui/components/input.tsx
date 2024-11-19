@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 type Props = {
   id: string;
@@ -7,7 +8,7 @@ type Props = {
   placeholder?: string;
   type?: string;
   disabled?: boolean;
-  register: any;
+  register: UseFormRegisterReturn;
   onFocus?: () => void;
   onBlur?: () => void;
 };
@@ -19,8 +20,6 @@ export function Input({
   type,
   disabled,
   register,
-  onFocus,
-  onBlur,
 }: Props) {
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePassword = () => {
@@ -31,8 +30,8 @@ export function Input({
       <input
         id={id}
         disabled={disabled}
-        {...register(id)}
-        placeholder=""
+        {...register}
+        placeholder={placeholder}
         type={
           type === "password" ? (passwordShown ? "text" : "password") : type
         }

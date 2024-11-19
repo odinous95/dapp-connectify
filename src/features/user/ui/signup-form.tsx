@@ -3,17 +3,17 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useActionState } from "react";
-import { SubmitButton } from "../../../ui/components/submit-button";
-import { Heading, Input } from "../../../ui/components";
 import { signupAction } from "../actions";
 import { SignUpFieldValues, signUpSchema } from "@/zod/zod-validation";
+import { Heading, Input, SubmitButton } from "@/ui/components";
 
 export default function SignUpForm() {
-  const [state, formAction] = useActionState(signupAction, null);
-  const {
-    register,
-    formState: { errors },
-  } = useForm<SignUpFieldValues>({
+  const [state, formAction] = useActionState(signupAction, {
+    success: false,
+    message: "",
+    errors: {},
+  });
+  const { register } = useForm<SignUpFieldValues>({
     resolver: zodResolver(signUpSchema),
   });
   const router = useRouter();
@@ -24,12 +24,16 @@ export default function SignUpForm() {
         <div className="flex flex-col gap-2">
           <Heading title="Saltis!" subtitle="Create an Account!" center />
           <form action={formAction}>
-            <Input id="email" label="Email Address" register={register} />
+            <Input
+              id="email"
+              label="Email Address"
+              register={register("email")}
+            />
             <span aria-live="polite" className="text-red-700 p-5">
               {state?.errors && JSON.stringify(state.errors.email)}
             </span>
 
-            <Input id="name" label="Full Name" register={register} />
+            <Input id="name" label="Full Name" register={register("name")} />
             <span aria-live="polite" className="text-red-700 p-5">
               {state?.errors && JSON.stringify(state.errors.name)}
             </span>
@@ -37,7 +41,7 @@ export default function SignUpForm() {
             <Input
               id="password"
               label="Password"
-              register={register}
+              register={register("password")}
               type="password"
             />
             <span aria-live="polite" className="text-red-700 p-5">
