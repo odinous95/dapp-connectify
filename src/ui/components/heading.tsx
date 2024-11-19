@@ -9,7 +9,7 @@ type Props = {
   iconSize?: number;
 };
 
-export default function Heading({
+export function Heading({
   title,
   subtitle,
   center,

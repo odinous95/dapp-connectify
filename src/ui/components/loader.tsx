@@ -1,6 +1,6 @@
 "use client";
 
-export default function Loader() {
+export function Loader() {
   return (
     <div className="rounded relative bg-white py-12">
       <div className="rounded-full bg-amber-100 w-[177px] h-[177px] relative flex justify-center items-center mx-auto animate-spin">

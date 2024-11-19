@@ -2,15 +2,11 @@
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  SignUpFieldValues,
-  signUpSchema,
-} from "../../../../zod/zod-validation";
-import Heading from "@/app/reuseble-components/heading";
-import Input from "@/app/reuseble-components/input";
-import { SubmitButton } from "./submit-button";
-import { signupAction } from "../actions";
 import { useActionState } from "react";
+import { SubmitButton } from "../../../ui/components/submit-button";
+import { Heading, Input } from "../../../ui/components";
+import { signupAction } from "../actions";
+import { SignUpFieldValues, signUpSchema } from "@/zod/zod-validation";
 
 export default function SignUpForm() {
   const [state, formAction] = useActionState(signupAction, null);

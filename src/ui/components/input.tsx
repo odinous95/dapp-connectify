@@ -12,7 +12,7 @@ type Props = {
   onBlur?: () => void;
 };
 
-export default function Input({
+export function Input({
   id,
   label,
   placeholder,
