@@ -7,7 +7,7 @@ import { signupAction } from "../actions";
 import { SignUpFieldValues, signUpSchema } from "@/zod/zod-validation";
 import { Heading, Input, SubmitButton } from "@/ui/components";
 
-export default function SignUpForm() {
+export function SignUpForm() {
   const [state, formAction] = useActionState(signupAction, {
     success: false,
     message: "",

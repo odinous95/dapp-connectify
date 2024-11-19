@@ -1,4 +1,4 @@
-import SignUpForm from "@/features/user/ui/signup-form";
+import { SignUpForm } from "@/features/user/ui/signup-form";
 import { SignUpPage } from "@/ui/pages-layout";
 export default function Signup() {
   return (
