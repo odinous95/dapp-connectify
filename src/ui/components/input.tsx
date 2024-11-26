@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { UseFormRegisterReturn } from "react-hook-form";

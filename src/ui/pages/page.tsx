@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Container } from "../components";
 
 type Props = {
   title: string;
@@ -6,9 +7,11 @@ type Props = {
 };
 export function Page({ children, title }: Props) {
   return (
-    <main>
-      <h2>{title}</h2>
-      {children}
-    </main>
+    <Container>
+      <main>
+        <h2>{title}</h2>
+        {children}
+      </main>
+    </Container>
   );
 }
