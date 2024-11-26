@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/features/users-managment/ui";
+import { SignUpForm } from "@/features/user-managment/ui";
 import { Page } from "@/ui/pages";
 
 export default function Signup() {

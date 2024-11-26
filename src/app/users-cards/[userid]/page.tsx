@@ -1,11 +1,17 @@
+import { UserCard } from "@/features/card/ui";
 import { Page } from "@/ui/pages";
 
-export default async function UserCard({
+export default async function UserPage({
   params,
 }: {
   params: Promise<{ userid: string }>;
 }) {
   const userid = (await params).userid;
-  // const userData =
-  return <Page title={"User Business Card"}>My user: {userid}</Page>;
+
+  return (
+    <Page title={"User Business Card"}>
+      My user: {userid}
+      <UserCard />
+    </Page>
+  );
 }
