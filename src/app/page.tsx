@@ -1,10 +1,11 @@
-import { HomePage } from "@/ui/pages-layout";
+import { Page } from "@/ui/pages";
+
 const data = { total: 10, sick: 5 };
 export default function Home() {
   return (
-    <HomePage title={"Home"}>
+    <Page title={"Home"}>
       <pre>{JSON.stringify(data, null, 2)}</pre>
       <h2>This is the home page</h2>
-    </HomePage>
+    </Page>
   );
 }
