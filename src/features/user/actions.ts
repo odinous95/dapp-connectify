@@ -1,6 +1,6 @@
 "use server";
 import { redirect } from "next/navigation";
-import { userFeature } from "./instance";
+import { userFeature } from ".";
 
 type SignupErrors = {
   email?: string;

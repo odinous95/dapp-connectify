@@ -4,14 +4,13 @@ import { Repository } from "./repository";
 export function createService(repository: Repository) {
   return {
     signup(formData: FormData) {
+      const name = formData.get("name")?.toString();
       const email = formData.get("email")?.toString();
       const password = formData.get("password")?.toString();
-      const name = formData.get("name")?.toString();
       const userValidated = signUpSchema.safeParse({ email, password, name });
       if (!userValidated.success) {
         const errors = userValidated.error.flatten().fieldErrors;
         const errorMessages: Record<string, string> = {};
-
         if (errors.email) {
           errorMessages.email =
             "Email is required and should be a valid email address.";

@@ -6,7 +6,9 @@ export const userTable = pgTable("user", {
   email: varchar("email", { length: 255 }).notNull(),
   password: varchar({ length: 255 }).notNull(),
   phone: varchar("phone", { length: 20 }),
-  accountType: varchar("account_type", { length: 50 }).notNull(),
+  accountType: varchar("account_type", { length: 50 })
+    .notNull()
+    .$default(() => "free"),
   joinDate: date("join_date").notNull(),
   status: text("status").notNull(),
 });
