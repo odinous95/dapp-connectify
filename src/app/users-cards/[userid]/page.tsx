@@ -1,4 +1,4 @@
-import { UserCard } from "@/features/card/ui";
+import { ProfileCard } from "@/features/card/ui";
 import { Page } from "@/ui/pages";
 
 export default async function UserPage({
@@ -10,8 +10,7 @@ export default async function UserPage({
 
   return (
     <Page title={"User Business Card"}>
-      My user: {userid}
-      <UserCard />
+      <ProfileCard />
     </Page>
   );
 }
