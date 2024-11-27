@@ -2,15 +2,20 @@
 
 import { useActionState } from "react";
 import { addPlatformAction } from "../actions";
-import { Heading, Input, SubmitButton } from "@/ui/components";
+import { Input, SubmitButton } from "@/ui/components";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export function AddPlatform() {
   const [state, formAction, isPending] = useActionState(
     addPlatformAction,
     null
   );
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
 
-  console.log(state);
+  const pathname = usePathname();
+  console.log(pathname);
+  console.log(state, "this state");
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -24,9 +29,10 @@ export function AddPlatform() {
               type={"text"}
               disabled={false}
             />
-            <span aria-live="polite" className="text-red-700 p-5">
-              {state?.errors && JSON.stringify(state.errors.platform)}
+            <span aria-live="polite" className="text-red-700">
+              {state?.message && JSON.stringify(state.message)}
             </span>
+
             <SubmitButton title={"Add Platform"} />
           </form>
         </div>

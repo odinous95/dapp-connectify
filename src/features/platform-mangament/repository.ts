@@ -1,10 +1,14 @@
 import { db } from "@/drizzle-db";
+import { userSocialLinksTable } from "@/drizzle-db/schema";
 export function createRepository() {
-  async function addPlatformLinkToDb(platformLink: string) {
-    console.log("adding link in repository ", platformLink);
+  async function addPlatformToDb({ userId, platformName, platformUrl }) {
+    const platform = await db
+      .insert(userSocialLinksTable)
+      .values({ userId, platform, url });
+    return platform;
   }
   return {
-    addPlatformLinkToDb,
+    addPlatformToDb,
   };
 }
 

@@ -1,16 +1,23 @@
 "use server";
-import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { platformFeature } from ".";
 import { PLATFRORM_ERRORS } from "./types";
 
 export async function addPlatformAction(preState: any, payload: FormData) {
-  const platform = payload.get("platform")?.toString();
-  const platformPayload = { platform };
-  const response = await platformFeature.service.addPlatformLink(
-    platformPayload
-  );
+  console.log(payload);
+  const platformName = payload.get("name")?.toString();
+  const platformUrl = payload.get("url")?.toString();
+  const userId = payload.get("userId")?.toString();
+  const platformPayload = { platformName, platformUrl, userId };
+
+  const response = await platformFeature.service.addPlatform(platformPayload);
+  console.log(response);
   if (response.success) {
-    redirect(`/user-card/${response.userId}`);
+    // revalidatePath("/");
+    return {
+      success: true,
+      message: "Link has been added successfully!",
+    };
   } else {
     return {
       success: false,

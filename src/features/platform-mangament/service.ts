@@ -2,17 +2,20 @@ import { platformSchema } from "@/zod/zod-validation";
 import { Repository } from "./repository";
 
 export function createService(repository: Repository) {
-  async function addPlatformLink(platformPayload: string) {
-    const userIdValidated = platformSchema.safeParse({ platformPayload });
-    if (!userIdValidated.success) {
-      return {
-        success: false,
-      };
-    }
+  async function addPlatform(platformPayload) {
+    // console.log(platformPayload);
+    // const platformValidated = platformSchema.safeParse({ platformPayload });
+    // console.log(platformValidated);
+    // if (!platformValidated.success) {
+    //   return {
+    //     success: false,
+    //   };
+    // }
     try {
-      await repository.addPlatformLinkToDb(userIdValidated.data.link);
+      await repository.addPlatformToDb(platformValidated.data);
       return {
         success: true,
+        message: "Platform added successfully!",
       };
     } catch (dbError) {
       console.error("Database Error:", dbError);
@@ -23,6 +26,6 @@ export function createService(repository: Repository) {
     }
   }
   return {
-    addPlatformLink,
+    addPlatform,
   };
 }

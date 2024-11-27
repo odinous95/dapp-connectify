@@ -43,7 +43,9 @@ export const userIdSchema = z.object({
 });
 
 export const platformSchema = z.object({
-  link: z.string(),
+  url: z.string(),
+  userId: userIdSchema,
+  platformName: z.string(),
 });
 
 //--------------------------------------------
