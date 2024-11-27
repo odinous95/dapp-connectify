@@ -21,15 +21,6 @@ export function ProfileCard({ userProfile }: Props) {
           />
         </div>
       </div>
-      <AddPlatform userId={userProfile.id} />
-      {[
-        { title: "LinkedIn", href: "https://linkedin.com" },
-        { title: "GitHub", href: "https://github.com" },
-        { title: "Twitter", href: "https://twitter.com" },
-        { title: "Facebook", href: "https://facebook.com" },
-      ].map((sociallink, index) => (
-        <ProfileSocialLink key={index} sociallink={sociallink} />
-      ))}
     </>
   );
 }

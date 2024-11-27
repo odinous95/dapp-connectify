@@ -36,7 +36,15 @@ export function createService(repository: Repository) {
       };
     }
   }
+
+  async function getPlatformsByUserId(userId: string) {
+    const platforms = await repository.getPlatformsByUserIdFromDb(
+      Number(userId)
+    );
+    return platforms;
+  }
   return {
     addPlatform,
+    getPlatformsByUserId,
   };
 }

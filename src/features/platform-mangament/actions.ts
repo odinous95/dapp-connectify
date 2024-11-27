@@ -10,7 +10,7 @@ export async function addPlatformAction(preState: any, payload: FormData) {
   const platformPayload = { userId, platformName, platformUrl };
   const response = await platformFeature.service.addPlatform(platformPayload);
   if (response.success) {
-    revalidatePath("/");
+    revalidatePath(`/user-card/${userId}`);
     return {
       success: true,
       message: "Link has been added successfully!",

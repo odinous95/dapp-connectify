@@ -3,6 +3,11 @@ import { ProfileCard } from "@/features/card-mangament/ui";
 import { Page } from "@/ui/pages";
 import { getSession } from "@/lib/session";
 import { SignOutButton } from "@/features/user-managment/ui";
+import {
+  AddPlatform,
+  ProfileSocialLink,
+} from "@/features/platform-mangament/ui";
+import { platformFeature } from "@/features/platform-mangament";
 
 type JWTPayload = {
   signedInUser: {
@@ -36,7 +41,6 @@ export default async function UserProfilePage({
       </Page>
     );
   }
-
   const response = await cardFeature.service.getUserProfileById(userId);
   if (!response.success || !response.userProfile) {
     return (
@@ -50,7 +54,7 @@ export default async function UserProfilePage({
       </Page>
     );
   }
-
+  const platfroms = await platformFeature.service.getPlatformsByUserId(userId);
   return (
     <Page title="User Profile">
       <section className="flex flex-col items-center justify-center py-10">
@@ -62,6 +66,11 @@ export default async function UserProfilePage({
         </div>
         <div className="mt-8 w-full max-w-3xl">
           <ProfileCard userProfile={response.userProfile} />
+          {platfroms &&
+            platfroms.map((item) => (
+              <ProfileSocialLink key={item.id} platform={item} />
+            ))}
+          <AddPlatform userId={sessionUserId} />
         </div>
       </section>
     </Page>

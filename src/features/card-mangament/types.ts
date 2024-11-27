@@ -4,9 +4,11 @@ export type USER = {
   email: string;
 };
 
-export type SOCIAL_LINK = {
-  title: string;
-  href: string;
+export type PLATFORM = {
+  id: number;
+  userId: number;
+  platformName: string;
+  platformUrl: string;
 };
 
 export type PROFILE = {

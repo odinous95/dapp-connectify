@@ -1,5 +1,6 @@
 import { db } from "@/drizzle-db";
 import { userSocialLinksTable } from "@/drizzle-db/schema";
+import { eq } from "drizzle-orm";
 import { PLATFORM } from "./types";
 export function createRepository() {
   async function addPlatformToDb({
@@ -15,8 +16,16 @@ export function createRepository() {
 
     return platform;
   }
+  async function getPlatformsByUserIdFromDb(userId: number) {
+    return await db
+      .select()
+      .from(userSocialLinksTable)
+      .where(eq(userSocialLinksTable.userId, userId));
+  }
+
   return {
     addPlatformToDb,
+    getPlatformsByUserIdFromDb,
   };
 }
 
