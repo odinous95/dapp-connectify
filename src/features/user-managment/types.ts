@@ -13,3 +13,20 @@ export type SIGNUP_ERRORS = {
   password?: string;
   name?: string;
 };
+
+export type SIGNIN_PAYLOAD = {
+  email?: string;
+  password?: string;
+};
+
+export type SIGNIN_USER = {
+  email: string;
+  password: string;
+};
+export type SIGNIN_ERRORS = {
+  general: string;
+
+  userId: string;
+  email: string;
+  password: string;
+};

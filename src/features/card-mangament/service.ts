@@ -2,7 +2,7 @@ import { userIdSchema } from "@/zod/zod-validation";
 import { Repository } from "./repository";
 
 export function createService(repository: Repository) {
-  async function getUserProfileById(userId: number) {
+  async function getUserProfileById(userId: string) {
     const userIdValidated = userIdSchema.safeParse({ userId });
     if (!userIdValidated.success) {
       return {

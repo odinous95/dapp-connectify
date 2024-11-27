@@ -1,6 +1,6 @@
 import { db } from "@/drizzle-db";
 import { userTable } from "@/drizzle-db/schema";
-import { USER } from "./types";
+import { SIGNIN_USER, USER } from "./types";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 export function createRepository() {
@@ -17,21 +17,37 @@ export function createRepository() {
       throw new Error("Failed to sign up  user.");
     }
   }
-  async function getUserByEmailFromDb(email: string) {
+  async function signinUserInDb({ email, password }: SIGNIN_USER) {
     try {
       const [user] = await db
         .select()
         .from(userTable)
         .where(eq(userTable.email, email));
-      return user;
+
+      if (!user) {
+        console.error("User not found");
+        return { error: "User not found" };
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        console.error("Invalid password");
+        return { error: "Invalid password" };
+      }
+      return {
+        id: user.id.toString(),
+        name: user.name,
+        email: user.email,
+      };
     } catch (error) {
-      console.error("Failed to fetch user:", error);
-      throw new Error("Failed to fetch user.");
+      console.error("Failed to sign in user:", error);
+      throw new Error("Failed to sign in user.");
     }
   }
+
   return {
     signupUserInDb,
-    getUserByEmailFromDb,
+    signinUserInDb,
   };
 }
 

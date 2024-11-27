@@ -3,12 +3,11 @@ import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import { signupAction } from "../actions";
 import { Heading, Input, SubmitButton } from "@/ui/components";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { FormRedirect } from ".";
 
 export function SignUpForm() {
   const [state, formAction, isPending] = useActionState(signupAction, null);
-  const router = useRouter();
-  console.log(state);
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="bg-gray-100 text-black rounded m-auto p-3 w-full max-w-md sm:p-8  md:max-w-lg  md:p-8 lg:max-w-xl xl:max-w-2xl">
@@ -22,9 +21,9 @@ export function SignUpForm() {
               type={"text"}
               disabled={false}
             />
-            <span aria-live="polite" className="text-red-700 p-5">
+            <strong aria-live="polite" className="text-red-700 p-5">
               {state?.errors && JSON.stringify(state.errors.email)}
-            </span>
+            </strong>
             <Input
               id="name"
               label="Full Name"
@@ -32,9 +31,9 @@ export function SignUpForm() {
               type={"text"}
               disabled={false}
             />
-            <span aria-live="polite" className="text-red-700 p-5">
+            <strong aria-live="polite" className="text-red-700 p-5">
               {state?.errors && JSON.stringify(state.errors.name)}
-            </span>
+            </strong>
             <Input
               id="password"
               label="Password"
@@ -42,26 +41,32 @@ export function SignUpForm() {
               name={"password"}
               disabled={false}
             />
-            <span aria-live="polite" className="text-red-700 p-5">
+            <strong aria-live="polite" className="text-red-700 p-5">
               {state?.errors && JSON.stringify(state.errors.password)}
-            </span>
-            <SubmitButton title={"Sign up"} aria-disabled={isPending} />
+            </strong>
+            <SubmitButton
+              title={"Sign up"}
+              aria-disabled={isPending}
+              pending={isPending}
+            />
+            {state && (
+              <div
+                className="mt-4 flex items-center space-x-2 rounded-md bg-red-50 p-3 text-sm text-red-600"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                <strong>{state.message}</strong>
+              </div>
+            )}
           </form>
         </div>
-        <div className="flex flex-col py-10">
-          <hr />
-          <div className="text-neutral-500 text-center font-light">
-            <div>
-              Already have an account?
-              <span
-                onClick={() => router.push("/sign-in")}
-                className="text-neutral-800 cursor-pointer hover:underline"
-              >
-                Log in
-              </span>
-            </div>
-          </div>
-        </div>
+        <FormRedirect
+          message={"Already have an account?"}
+          linkText={"Sign in"}
+          redirectPath={"/sign-in"}
+        />
+        <hr />
       </div>
     </div>
   );

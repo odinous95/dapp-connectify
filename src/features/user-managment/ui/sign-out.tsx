@@ -1,33 +1,16 @@
+"use client";
 import { PowerIcon } from "@heroicons/react/24/outline";
-import { signOut } from "../../../../auth";
-import { deleteSession } from "@/lib/session";
-import { redirect } from "next/navigation";
+import { signoutAction } from "../actions";
 
-type SignOutButtonProps = {
-  redirectPath?: string;
-  buttonText?: string;
-  className?: string;
-};
-
-export function SignOutButton({
-  redirectPath = "/sign-in",
-  buttonText = "Sign Out",
-  className = "",
-}: SignOutButtonProps) {
-  const handleSignOut = async (event: React.FormEvent) => {
-    event.preventDefault();
-    deleteSession();
-    await signOut();
-    redirect(redirectPath);
-  };
-
+export function SignOutButton() {
   return (
-    <form onSubmit={handleSignOut}>
+    <form action={signoutAction}>
       <button
-        className={`flex h-[48px] items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 ${className}`}
+        className="ml-auto flex items-center gap-2 bg-red-600 text-white px-5 py-2 rounded-md font-medium shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
+        type="submit"
       >
-        <PowerIcon className="w-6" />
-        <div className="hidden md:block">{buttonText}</div>
+        <PowerIcon className="w-5 h-5" />
+        Sign Out
       </button>
     </form>
   );
