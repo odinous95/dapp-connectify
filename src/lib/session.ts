@@ -1,4 +1,4 @@
-import "server-only";
+// import "server-only";
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 const secretKey = process.env.SESSION_SECRET;

@@ -93,8 +93,14 @@ export function createService(repository: Repository) {
       };
     }
   }
+
+  async function getAllUsers() {
+    const users = await repository.getAllUsersFromDb();
+    return users;
+  }
   return {
     signup,
     signin,
+    getAllUsers,
   };
 }
