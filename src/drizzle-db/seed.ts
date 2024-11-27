@@ -1,13 +1,14 @@
 import { userFeature } from "@/features/user-managment";
 import { platformFeature } from "@/features/platform-mangament";
+import { faker } from "@faker-js/faker";
 
 export const seedUsers = async (count: number) => {
   const users = [];
   for (let i = 0; i < count; i++) {
     console.log(`Seeding user ${i + 1}`);
     users.push({
-      name: `user ${i + 1}`,
-      email: `user${i + 1}@gmail.com`,
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
       password: `user${i + 1}@gmfasAAdf!!!il.com`,
     });
   }
@@ -60,7 +61,7 @@ export const seedPlatforms = async () => {
 };
 
 const seedAllData = async () => {
-  //   await seedUsers(10);
+  await seedUsers(50);
   await seedPlatforms();
   console.log("Hurrra! Seeding all data is donne!");
 };

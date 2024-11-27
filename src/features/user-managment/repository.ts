@@ -5,7 +5,6 @@ import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 export function createRepository() {
   async function signupUserInDb({ name, email, password }: USER) {
-    console.log("Attempting to sign up user:", { name, email, password });
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
       const [insertedUser] = await db
