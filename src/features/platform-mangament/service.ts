@@ -3,6 +3,7 @@ import { Repository } from "./repository";
 
 export function createService(repository: Repository) {
   async function addPlatform(platformPayload) {
+    console.log(platformPayload);
     // console.log(platformPayload);
     // const platformValidated = platformSchema.safeParse({ platformPayload });
     // console.log(platformValidated);

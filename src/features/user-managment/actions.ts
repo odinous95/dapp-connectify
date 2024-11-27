@@ -4,7 +4,7 @@ import { userFeature } from ".";
 import { SIGNIN_ERRORS, SIGNUP_ERRORS } from "./types";
 import { createSession, logout } from "@/lib/session";
 
-export async function signupAction(preState: any, payload: FormData) {
+export async function signupAction(preState: unknown, payload: FormData) {
   const email = payload.get("email")?.toString();
   const name = payload.get("name")?.toString();
   const password = payload.get("password")?.toString();
@@ -26,7 +26,7 @@ export async function signupAction(preState: any, payload: FormData) {
   }
 }
 
-export async function signinAction(prevState: any, payload: FormData) {
+export async function signinAction(prevState: unknown, payload: FormData) {
   const email = payload.get("email")?.toString();
   const password = payload.get("password")?.toString();
   const signinPayload = { email, password };
