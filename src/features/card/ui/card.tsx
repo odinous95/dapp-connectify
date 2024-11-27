@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ProfileSocialLink, ProfileImage, ProfileBio } from ".";
 
-export async function ProfileCard() {
+export async function ProfileCard({ user }: any) {
   return (
     <>
       <div className="px-8 py-8 mt-3 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
@@ -9,8 +9,8 @@ export async function ProfileCard() {
           <ProfileImage />
           <ProfileBio
             profile={{
-              name: "odin",
-              bio: "heelo this is odin",
+              name: user && user.name,
+              bio: user && user.biography,
             }}
           />
         </div>

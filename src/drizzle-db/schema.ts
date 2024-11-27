@@ -11,4 +11,5 @@ export const userTable = pgTable("user", {
     .$default(() => "free"),
   joinDate: date("join_date"),
   status: text("status"),
+  biography: text("biography"),
 });
