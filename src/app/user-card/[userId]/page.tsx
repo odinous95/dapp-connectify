@@ -19,6 +19,7 @@ type JWTPayload = {
   iat: number;
   exp: number;
 };
+
 export default async function UserProfilePage({
   params,
 }: {
@@ -29,18 +30,6 @@ export default async function UserProfilePage({
   const userEmail = session?.signedInUser?.email;
   const { userId } = await params;
 
-  if (!sessionUserId || sessionUserId !== userId) {
-    return (
-      <Page title="Unauthorized">
-        <section className="flex flex-col items-center justify-center h-full text-center">
-          <h1 className="text-3xl font-bold text-red-600">Access Denied</h1>
-          <p className="mt-4 text-gray-700">
-            You are not authorized to view this profile.
-          </p>
-        </section>
-      </Page>
-    );
-  }
   const response = await cardFeature.service.getUserProfileById(userId);
   if (!response.success || !response.userProfile) {
     return (
@@ -54,23 +43,25 @@ export default async function UserProfilePage({
       </Page>
     );
   }
-  const platfroms = await platformFeature.service.getPlatformsByUserId(userId);
+  const platforms = await platformFeature.service.getPlatformsByUserId(userId);
   return (
     <Page title="User Profile">
       <section className="flex flex-col items-center justify-center py-10">
-        <div className="flex items-center justify-between w-full max-w-lg p-4 bg-white rounded-lg shadow-md">
-          <span className="text-lg text-gray-700">
-            {`Logged in as: ${userEmail}`}
-          </span>
-          <SignOutButton />
-        </div>
+        {sessionUserId && (
+          <div className="flex items-center justify-between w-full max-w-lg p-4 bg-white rounded-lg shadow-md">
+            <span className="text-lg text-gray-700">
+              {`Logged in as: ${userEmail}`}
+            </span>
+            <SignOutButton />
+          </div>
+        )}
         <div className="mt-8 w-full max-w-3xl">
           <ProfileCard userProfile={response.userProfile} />
-          {platfroms &&
-            platfroms.map((item) => (
+          {platforms &&
+            platforms.map((item) => (
               <ProfileSocialLink key={item.id} platform={item} />
             ))}
-          <AddPlatform userId={sessionUserId} />
+          {sessionUserId === userId && <AddPlatform userId={sessionUserId} />}
         </div>
       </section>
     </Page>
