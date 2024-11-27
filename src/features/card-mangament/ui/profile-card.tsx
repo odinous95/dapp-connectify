@@ -21,7 +21,7 @@ export function ProfileCard({ userProfile }: Props) {
           />
         </div>
       </div>
-      <AddPlatform />
+      <AddPlatform userId={userProfile.id} />
       {[
         { title: "LinkedIn", href: "https://linkedin.com" },
         { title: "GitHub", href: "https://github.com" },

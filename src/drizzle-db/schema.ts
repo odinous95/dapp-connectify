@@ -19,6 +19,6 @@ export const userSocialLinksTable = pgTable("user_social_links", {
   userId: integer("user_id")
     .notNull()
     .references(() => userTable.id),
-  platform: varchar("platform", { length: 50 }).notNull(),
-  url: varchar("url", { length: 255 }).notNull(),
+  platformName: varchar("platform", { length: 50 }).notNull(),
+  platformUrl: varchar("url", { length: 255 }).notNull(),
 });

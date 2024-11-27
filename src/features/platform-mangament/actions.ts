@@ -4,16 +4,13 @@ import { platformFeature } from ".";
 import { PLATFRORM_ERRORS } from "./types";
 
 export async function addPlatformAction(preState: any, payload: FormData) {
-  console.log(payload);
-  const platformName = payload.get("name")?.toString();
-  const platformUrl = payload.get("url")?.toString();
-  const userId = payload.get("userId")?.toString();
-  const platformPayload = { platformName, platformUrl, userId };
-
+  const platformName = payload.get("platformName")?.toString();
+  const platformUrl = payload.get("platformUrl")?.toString();
+  const userId = parseInt(payload.get("userId") as string, 10);
+  const platformPayload = { userId, platformName, platformUrl };
   const response = await platformFeature.service.addPlatform(platformPayload);
-  console.log(response);
   if (response.success) {
-    // revalidatePath("/");
+    revalidatePath("/");
     return {
       success: true,
       message: "Link has been added successfully!",
