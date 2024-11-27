@@ -29,7 +29,6 @@ export function createRepository() {
       throw new Error("Failed to fetch user.");
     }
   }
-
   return {
     signupUserInDb,
     getUserByEmailFromDb,

@@ -6,7 +6,6 @@ import {
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-
 import { useActionState } from "react";
 import { authenticate } from "../actions";
 import { SubmitButton } from "@/ui/components";
@@ -74,7 +73,7 @@ export function LoginForm() {
           {errorMessage && (
             <>
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-              <p className="text-sm text-red-500">{errorMessage}</p>
+              <strong className="text-sm text-red-500">{errorMessage}</strong>
             </>
           )}
         </div>
