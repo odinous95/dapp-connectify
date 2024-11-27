@@ -8,18 +8,19 @@ export default async function UserProfilePage({
   params: Promise<{ userId: number }>;
 }) {
   const userId = (await params).userId;
-  const [userProfile] = await cardFeature.service.getUserProfileById(userId);
-  if (!userProfile) {
+  const response = await cardFeature.service.getUserProfileById(userId);
+  console.log(response);
+  if (!response.success || !response.userProfile) {
     return (
       <div>
-        <h1>User does not exist</h1>
+        <h1>User does not exist </h1>
       </div>
     );
   }
   return (
     <>
       <Page title={"User Profile"}>
-        <ProfileCard userProfile={userProfile} />
+        <ProfileCard userProfile={response.userProfile[0]} />
       </Page>
     </>
   );

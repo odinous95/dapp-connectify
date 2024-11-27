@@ -35,6 +35,13 @@ export const forgotPasswordSchema = z.object({
   email: emailSchema,
 });
 
+export const userIdSchema = z.object({
+  userId: z
+    .union([z.string(), z.number()])
+    .transform((val) => Number(val))
+    .refine((val) => !isNaN(val), { message: "userId must be a valid number" }),
+});
+
 //--------------------------------------------
 export type SignUpFieldValues = z.infer<typeof signUpSchema>;
 export type SignInFieldValues = z.infer<typeof signInSchema>;
