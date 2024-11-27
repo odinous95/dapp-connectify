@@ -9,6 +9,6 @@ export const userTable = pgTable("user", {
   accountType: varchar("account_type", { length: 50 })
     .notNull()
     .$default(() => "free"),
-  joinDate: date("join_date").notNull(),
-  status: text("status").notNull(),
+  joinDate: date("join_date"),
+  status: text("status"),
 });

@@ -1,26 +1,21 @@
 "use server";
 import { redirect } from "next/navigation";
 import { userFeature } from ".";
+import { SIGNUP_ERRORS } from "./types";
 
-type SignupErrors = {
-  email?: string;
-  name?: string;
-  password?: string;
-};
-
-export async function signupAction(
-  state: { success: boolean; message: string; errors: SignupErrors },
-  payload: FormData
-) {
-  try {
-    userFeature.service.signup(payload);
-  } catch (errors: unknown) {
-    console.error("Signup Error:", errors);
+export async function signupAction(preState: any, payload: FormData) {
+  const email = payload.get("email")?.toString();
+  const name = payload.get("name")?.toString();
+  const password = payload.get("password")?.toString();
+  const signupPayload = { email, name, password };
+  const response = await userFeature.service.signup(signupPayload);
+  if (response.success) {
+    redirect("/sign-in");
+  } else {
     return {
       success: false,
-      message: "Signup failed",
-      errors: errors as SignupErrors,
+      message: response.message || "Signup failed",
+      errors: response.errors as SIGNUP_ERRORS,
     };
   }
-  redirect("/sign-in");
 }
