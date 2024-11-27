@@ -11,13 +11,12 @@ export function createRepository() {
         .insert(userTable)
         .values({ name, email, password: hashedPassword })
         .returning({ id: userTable.id });
-      return insertedUser.id;
+      return insertedUser.id.toString();
     } catch (error) {
       console.error("Failed to sign up user:", error);
       throw new Error("Failed to sign up  user.");
     }
   }
-
   async function getUserByEmailFromDb(email: string) {
     try {
       const [user] = await db

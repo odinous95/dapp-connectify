@@ -3,7 +3,7 @@ type ProfileBioProps = {
   biography: string | null | undefined;
 };
 
-export async function ProfileBio({ biography, name }: ProfileBioProps) {
+export function ProfileBio({ biography, name }: ProfileBioProps) {
   return (
     <div>
       <h2 className="text-lg font-semibold text-white">{name}</h2>

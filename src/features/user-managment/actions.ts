@@ -2,9 +2,9 @@
 import { redirect } from "next/navigation";
 import { userFeature } from ".";
 import { SIGNUP_ERRORS } from "./types";
-
 import { AuthError } from "next-auth";
 import { signIn } from "../../../auth";
+import { createSession } from "@/lib/session";
 
 export async function signupAction(preState: any, payload: FormData) {
   const email = payload.get("email")?.toString();
@@ -13,7 +13,12 @@ export async function signupAction(preState: any, payload: FormData) {
   const signupPayload = { email, name, password };
   const response = await userFeature.service.signup(signupPayload);
   if (response.success) {
-    redirect(`/user-card/${response.userId}`);
+    if (response.userId) {
+      await createSession(response.userId);
+    } else {
+      throw new Error("User ID is undefined");
+    }
+    redirect("/sign-in");
   } else {
     return {
       success: false,

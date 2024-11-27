@@ -9,7 +9,7 @@ type Props = {
   userProfile: PROFILE;
 };
 
-export async function ProfileCard({ userProfile }: Props) {
+export function ProfileCard({ userProfile }: Props) {
   return (
     <>
       <div className="px-8 py-8 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">

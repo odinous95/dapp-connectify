@@ -26,7 +26,6 @@ export function createService(repository: Repository) {
         errors: errorMessages,
       };
     }
-
     try {
       const userId = await repository.signupUserInDb(userValidated.data);
       return {

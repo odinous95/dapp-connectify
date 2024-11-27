@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export async function ProfileImage() {
+export function ProfileImage() {
   return (
     <div className="relative flex-shrink-0 w-24 h-24 ">
       <Image
