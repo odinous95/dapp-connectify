@@ -33,10 +33,10 @@ export default async function UserProfilePage({
   const response = await cardFeature.service.getUserProfileById(userId);
   if (!response.success || !response.userProfile) {
     return (
-      <Page title="User Not Found">
+      <Page title="">
         <section className="flex flex-col items-center justify-center h-full text-center">
-          <h1 className="text-3xl font-bold text-gray-800">User Not Found</h1>
-          <p className="mt-4 text-gray-700">
+          <h1 className="text-3xl font-bold text-red-200">User Not Found</h1>
+          <p className="mt-4 text-red-200">
             We couldn&apos;t find the profile you were looking for.
           </p>
         </section>
@@ -45,14 +45,18 @@ export default async function UserProfilePage({
   }
   const platforms = await platformFeature.service.getPlatformsByUserId(userId);
   return (
-    <Page title="User Profile">
+    <Page title="">
       <section className="flex flex-col items-center justify-center py-10">
         {sessionUserId && (
-          <div className="flex items-center justify-between w-full max-w-lg p-4 bg-white rounded-lg shadow-md">
-            <span className="text-lg text-gray-700">
-              {`Logged in as: ${userEmail}`}
-            </span>
-            <SignOutButton />
+          <div className="flex items-center justify-between w-full p-4 bg-gray-800 text-white shadow-md fixed top-0 left-0 z-10">
+            <div className="flex items-center">
+              <span className="text-lg font-semibold">
+                {`Logged in as: ${userEmail}`}
+              </span>
+            </div>
+            <div className="flex items-center">
+              <SignOutButton />
+            </div>
           </div>
         )}
         <div className="mt-8 w-full max-w-3xl">

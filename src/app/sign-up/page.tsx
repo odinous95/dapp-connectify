@@ -3,7 +3,7 @@ import { Page } from "@/ui/pages";
 
 export default function Signup() {
   return (
-    <Page title={"Sign Up"}>
+    <Page title={""}>
       <SignUpForm />
     </Page>
   );

@@ -12,6 +12,7 @@ export const userTable = pgTable("user", {
   joinDate: date("join_date"),
   status: text("status"),
   biography: text("biography"),
+  profileImageUrl: varchar("profile_image_url", { length: 1024 }),
 });
 
 export const userSocialLinksTable = pgTable("user_social_links", {

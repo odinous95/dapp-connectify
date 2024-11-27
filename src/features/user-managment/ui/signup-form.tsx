@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import { signupAction } from "../actions";
 import { Heading, Input, SubmitButton } from "@/ui/components";

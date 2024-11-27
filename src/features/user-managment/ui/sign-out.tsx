@@ -4,7 +4,12 @@ import { signoutAction } from "../actions";
 
 export function SignOutButton() {
   return (
-    <form action={signoutAction}>
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        await signoutAction();
+      }}
+    >
       <button
         className="ml-auto flex items-center gap-2 bg-red-600 text-white px-5 py-2 rounded-md font-medium shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
         type="submit"
