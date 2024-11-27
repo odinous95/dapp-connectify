@@ -6,7 +6,6 @@ type Props = {
 };
 export function SubmitButton({ title }: Props) {
   const { pending } = useFormStatus();
-
   return (
     <div>
       <button

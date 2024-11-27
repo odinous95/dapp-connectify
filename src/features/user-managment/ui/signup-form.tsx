@@ -45,7 +45,7 @@ export function SignUpForm() {
             <span aria-live="polite" className="text-red-700 p-5">
               {state?.errors && JSON.stringify(state.errors.password)}
             </span>
-            <SubmitButton />
+            <SubmitButton title={"Sign up"} aria-disabled={isPending} />
           </form>
         </div>
         <div className="flex flex-col py-10">

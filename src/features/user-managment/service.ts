@@ -1,11 +1,10 @@
 import { signUpSchema } from "@/zod/zod-validation";
 import { Repository } from "./repository";
-import { SIGNUP_ERRORS, SIGNUP_PAYLOAD } from "./types";
+import { SIGNUP_ERRORS, SIGNUP_PAYLOAD, USER } from "./types";
 
 export function createService(repository: Repository) {
   async function signup({ email, password, name }: SIGNUP_PAYLOAD) {
     const userValidated = signUpSchema.safeParse({ email, password, name });
-
     if (!userValidated.success) {
       const errors = userValidated.error.flatten().fieldErrors;
       const errorMessages: SIGNUP_ERRORS = {};
@@ -45,7 +44,12 @@ export function createService(repository: Repository) {
       };
     }
   }
+
+  async function getUserByEmail(email: string) {
+    return await repository.getUserByEmailFromDb(email);
+  }
   return {
     signup,
+    getUserByEmail,
   };
 }

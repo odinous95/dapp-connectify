@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 import { userFeature } from ".";
 import { SIGNUP_ERRORS } from "./types";
 
+import { AuthError } from "next-auth";
+import { signIn } from "../../../auth";
+
 export async function signupAction(preState: any, payload: FormData) {
   const email = payload.get("email")?.toString();
   const name = payload.get("name")?.toString();
@@ -17,5 +20,25 @@ export async function signupAction(preState: any, payload: FormData) {
       message: response.message || "Signup failed",
       errors: response.errors as SIGNUP_ERRORS,
     };
+  }
+}
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData
+) {
+  // console.log(formData);
+  try {
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid credentials.";
+        default:
+          return "Something went wrong.";
+      }
+    }
+    throw error;
   }
 }

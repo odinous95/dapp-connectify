@@ -1,3 +1,10 @@
+import { LoginForm } from "@/features/user-managment/ui";
+import { Page } from "@/ui/pages";
+
 export default function Signin() {
-  return <div>Sign In</div>;
+  return (
+    <Page title={"Sign in"}>
+      <LoginForm />
+    </Page>
+  );
 }
