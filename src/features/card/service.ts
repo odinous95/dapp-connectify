@@ -1,11 +1,11 @@
 import { Repository } from "./repository";
 
 export function createService(repository: Repository) {
-  async function getUserById(userId: string) {
-    return await repository.getUserByIdFromDb(userId);
+  async function getUserProfileById(userId: number) {
+    return await repository.getUserProfileByIdFromDb(userId);
   }
 
   return {
-    getUserById,
+    getUserProfileById,
   };
 }

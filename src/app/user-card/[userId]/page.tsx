@@ -1,14 +1,15 @@
 import { cardFeature } from "@/features/card";
 import { ProfileCard } from "@/features/card/ui";
+import { Page } from "@/ui/pages";
 
-export default async function Page({
+export default async function UserProfilePage({
   params,
 }: {
-  params: Promise<{ userId: string }>;
+  params: Promise<{ userId: number }>;
 }) {
   const userId = (await params).userId;
-  const [user] = await cardFeature.service.getUserById(userId);
-  if (!user) {
+  const [userProfile] = await cardFeature.service.getUserProfileById(userId);
+  if (!userProfile) {
     return (
       <div>
         <h1>User does not exist</h1>
@@ -17,7 +18,9 @@ export default async function Page({
   }
   return (
     <>
-      <ProfileCard user={user} />
+      <Page title={"User Profile"}>
+        <ProfileCard userProfile={userProfile} />
+      </Page>
     </>
   );
 }

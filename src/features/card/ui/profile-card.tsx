@@ -1,18 +1,18 @@
 import Image from "next/image";
 import { ProfileSocialLink, ProfileImage, ProfileBio } from ".";
+import { PROFILE } from "../types";
 
-export async function ProfileCard({ user }: any) {
+type Props = {
+  userProfile: PROFILE;
+};
+
+export async function ProfileCard({ userProfile }: Props) {
   return (
     <>
       <div className="px-8 py-8 mt-3 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
         <div className="flex flex-wrap items-start sm:space-x-6 sm:flex-nowrap">
           <ProfileImage />
-          <ProfileBio
-            profile={{
-              name: user && user.name,
-              bio: user && user.biography,
-            }}
-          />
+          <ProfileBio biography={userProfile?.biography} />
         </div>
       </div>
 
