@@ -10,7 +10,7 @@ export async function signupAction(preState: any, payload: FormData) {
   const signupPayload = { email, name, password };
   const response = await userFeature.service.signup(signupPayload);
   if (response.success) {
-    redirect("/sign-in");
+    redirect(`/user-card/${response.userId}`);
   } else {
     return {
       success: false,

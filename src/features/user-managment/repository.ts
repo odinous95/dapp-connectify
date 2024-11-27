@@ -4,8 +4,13 @@ import { USER } from "./types";
 
 export function createRepository() {
   async function signupUserInDb({ name, email, password }: USER) {
-    return await db.insert(userTable).values({ name, email, password });
+    const [insertedUser] = await db
+      .insert(userTable)
+      .values({ name, email, password })
+      .returning({ id: userTable.id });
+    return insertedUser.id;
   }
+
   return {
     signupUserInDb,
   };
