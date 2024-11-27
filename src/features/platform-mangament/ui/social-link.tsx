@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BiLinkExternal } from "react-icons/bi";
-import { SOCIAL_LINK } from "../types";
+import { SOCIAL_LINK } from "../../card-mangament/types";
 
 type Props = {
   sociallink: SOCIAL_LINK;

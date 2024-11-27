@@ -1,0 +1,1 @@
+export { platformFeature } from "./feature";

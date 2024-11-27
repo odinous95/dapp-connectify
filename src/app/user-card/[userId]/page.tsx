@@ -1,5 +1,5 @@
-import { cardFeature } from "@/features/card";
-import { ProfileCard } from "@/features/card/ui";
+import { cardFeature } from "@/features/card-mangament";
+import { ProfileCard } from "@/features/card-mangament/ui";
 import { Page } from "@/ui/pages";
 
 export default async function UserProfilePage({
@@ -9,7 +9,6 @@ export default async function UserProfilePage({
 }) {
   const userId = (await params).userId;
   const response = await cardFeature.service.getUserProfileById(userId);
-  console.log(response);
   if (!response.success || !response.userProfile) {
     return (
       <div>
@@ -20,7 +19,7 @@ export default async function UserProfilePage({
   return (
     <>
       <Page title={"User Profile"}>
-        <ProfileCard userProfile={response.userProfile[0]} />
+        <ProfileCard userProfile={response.userProfile} />
       </Page>
     </>
   );

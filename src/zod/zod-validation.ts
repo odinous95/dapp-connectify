@@ -42,6 +42,10 @@ export const userIdSchema = z.object({
     .refine((val) => !isNaN(val), { message: "userId must be a valid number" }),
 });
 
+export const platformSchema = z.object({
+  link: z.string(),
+});
+
 //--------------------------------------------
 export type SignUpFieldValues = z.infer<typeof signUpSchema>;
 export type SignInFieldValues = z.infer<typeof signInSchema>;

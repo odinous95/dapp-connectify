@@ -3,7 +3,7 @@ import { userTable } from "@/drizzle-db/schema";
 import { eq } from "drizzle-orm";
 export function createRepository() {
   async function getUserProfileByIdFromDb(userId: number) {
-    const user = await db
+    const [userProfile] = await db
       .select({
         id: userTable.id,
         name: userTable.name,
@@ -14,7 +14,7 @@ export function createRepository() {
       })
       .from(userTable)
       .where(eq(userTable.id, userId));
-    return user;
+    return userProfile;
   }
 
   return {

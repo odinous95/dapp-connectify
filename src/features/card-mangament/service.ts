@@ -3,10 +3,7 @@ import { Repository } from "./repository";
 
 export function createService(repository: Repository) {
   async function getUserProfileById(userId: number) {
-    console.log(userId);
-
     const userIdValidated = userIdSchema.safeParse({ userId });
-    console.log(userIdValidated);
     if (!userIdValidated.success) {
       return {
         success: false,

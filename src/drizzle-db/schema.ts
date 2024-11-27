@@ -13,3 +13,12 @@ export const userTable = pgTable("user", {
   status: text("status"),
   biography: text("biography"),
 });
+
+export const userSocialLinksTable = pgTable("user_social_links", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => userTable.id),
+  platform: varchar("platform", { length: 50 }).notNull(),
+  url: varchar("url", { length: 255 }).notNull(),
+});
