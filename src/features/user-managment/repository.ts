@@ -45,7 +45,7 @@ export function createRepository() {
     }
   }
   async function getAllUsersFromDb() {
-    const users = db.select().from(userTable);
+    const users = db.select().from(userTable).limit(5);
     return users;
   }
   async function getLoggedInUserFromDb(sessionUserId: string) {
