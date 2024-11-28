@@ -1,14 +1,16 @@
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-
+import dotenv from "dotenv";
+dotenv.config();
+console.log(process.env.SECERET_KEY);
+console.log(process.env);
 export async function uploadFileToS3(
   bucketName: string,
   key: string,
   fileContent: any
 ) {
-  console.log("Access Key:", process.env.access_key);
-  console.log("Secret Key:", process.env.secret_key);
-  console.log("Secret Key:", process.env.DATABASE_URL);
-
+  if (!process.env.accessKeyId || !process.env.secretAccessKey) {
+    throw new Error("AWS credentials are not defined");
+  }
   const s3Client = new S3Client({
     region: "eu-north-1",
     credentials: {
