@@ -1,4 +1,5 @@
 import { cardFeature } from "@/features/card-mangament";
+import Image from "next/image";
 import {
   ProfileCardAdmin,
   ProfileCardUser,
@@ -12,7 +13,8 @@ import {
   ProfileSocialLink,
 } from "@/features/platform-mangament/ui";
 import { platformFeature } from "@/features/platform-mangament";
-
+import DefaultImage from "@/public/profile-placeholder.svg";
+import Link from "next/link";
 type JWTPayload = {
   payload: {
     id: string;
@@ -51,14 +53,24 @@ export default async function UserProfilePage({
   return (
     <Page title="">
       <section className="flex flex-col items-center justify-center py-10">
-        {sessionUserId && (
+        {sessionUserId && userProfile && (
           <div className="flex items-center justify-between w-full p-4 bg-gray-800 text-white shadow-md fixed top-0 left-0 z-10">
-            <div className="flex items-center">
-              <span className="text-lg font-semibold">
-                {`Logged in as: ${userEmail}`}
-              </span>
+            <div className="flex items-center space-x-4">
+              <span className="bg-green-800 p-1 rounded-full">On</span>
+              <div className="relative">
+                <Link href={`/user-card/${sessionUserId}`}>
+                  <Image
+                    src={userProfile.profileImageUrl || DefaultImage.src}
+                    alt="User Avatar"
+                    className="h-10 w-15 rounded-full object-cover"
+                    width={40}
+                    height={40}
+                  />
+                </Link>
+              </div>
+              <span className="text-sm font-semibold">{` | ${userEmail}`}</span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center space-x-2">
               <SignOutButton />
             </div>
           </div>
