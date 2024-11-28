@@ -29,7 +29,6 @@ export async function signupAction(preState: unknown, payload: FormData) {
     };
   }
 }
-
 export async function signinAction(prevState: unknown, payload: FormData) {
   const email = payload.get("email")?.toString();
   const password = payload.get("password")?.toString();
@@ -56,7 +55,6 @@ export async function signoutAction() {
   await logout();
   redirect("/sign-in");
 }
-
 export async function imageUploadAction(preState: unknown, payload: FormData) {
   const file = payload.get("imagefile") as File;
   const userId = parseInt(payload.get("userId") as string, 10);
@@ -76,36 +74,37 @@ export async function imageUploadAction(preState: unknown, payload: FormData) {
       errors: errors,
     };
   }
-  try {
-    const buffer = await file.arrayBuffer();
-    const bufferData = Buffer.from(buffer);
-    const fileNameSanitized = sanitizeFileName(file.name);
-    const key = `${Date.now()}_${fileNameSanitized}`;
-    const bucketName = "conncitfy-bucket-salt";
-    const response = await uploadFileToS3(
-      "conncitfy-bucket-salt",
-      key,
-      bufferData
-    );
-    const profileImageUrl = `https://${bucketName}.s3.${"eu-north-1"}.amazonaws.com/${key}`;
-    userFeature.service.setProfileImageUrl(userId, profileImageUrl);
-    if (response) {
-      return {
-        success: true,
-        message: "Image uploaded successfully!",
-      };
-    } else {
+  const buffer = await file.arrayBuffer();
+  const bufferData = Buffer.from(buffer);
+  const fileNameSanitized = sanitizeFileName(file.name);
+  const key = `${Date.now()}_${fileNameSanitized}`;
+  const bucketName = "conncitfy-bucket-salt";
+
+  return uploadFileToS3("conncitfy-bucket-salt", key, bufferData)
+    .then(async (response) => {
+      const profileImageUrl = `https://${bucketName}.s3.eu-north-1.amazonaws.com/${key}`;
+      await userFeature.service.setProfileImageUrl(userId, profileImageUrl);
+      console.log(response);
+
+      if (response) {
+        revalidatePath(`/user-card/${userId}`);
+        return {
+          success: true,
+          message: "Image uploaded successfully!",
+        };
+      } else {
+        return {
+          success: false,
+          message: "Image upload failed!",
+        };
+      }
+    })
+    .catch((error) => {
+      console.error("Error uploading image:", error);
       return {
         success: false,
-        message: "Image upload failed!",
+        message: "Error uploading image.",
+        error: error,
       };
-    }
-  } catch (error) {
-    console.error("Error uploading image:", error);
-    return {
-      success: false,
-      message: "Error uploading image.",
-      error: error,
-    };
-  }
+    });
 }

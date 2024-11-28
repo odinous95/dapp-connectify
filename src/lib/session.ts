@@ -17,10 +17,10 @@ export async function decrypt(session: string | undefined = "") {
     });
     return payload;
   } catch (error) {
-    console.log("Failed to verify session");
+    console.log("Failed to verify session", error);
   }
 }
-export async function createSession(payload: any) {
+export async function createSession(payload: JWTPayload) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const session = await encrypt({ payload, expiresAt });
   (await cookies()).set("session", session, {

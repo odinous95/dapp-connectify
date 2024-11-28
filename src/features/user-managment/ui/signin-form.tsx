@@ -7,6 +7,7 @@ import { FormRedirect } from "./form-redirect";
 
 export function LoginForm() {
   const [state, formAction, isPending] = useActionState(signinAction, null);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="bg-gray-100 text-black rounded m-auto p-3 w-full max-w-md sm:p-8 md:max-w-lg lg:max-w-xl xl:max-w-2xl">

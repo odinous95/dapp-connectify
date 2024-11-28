@@ -4,7 +4,7 @@ dotenv.config();
 export async function uploadFileToS3(
   bucketName: string,
   key: string,
-  fileContent: any
+  fileContent: unknown
 ) {
   if (!process.env.accessKeyId || !process.env.secretAccessKey) {
     throw new Error("AWS credentials are not defined");

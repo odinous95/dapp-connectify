@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import { platformFeature } from ".";
 import { PLATFRORM_ERRORS } from "./types";
 
-export async function addPlatformAction(preState: any, payload: FormData) {
+export async function addPlatformAction(preState: unknown, payload: FormData) {
   const platformName = payload.get("platformName")?.toString();
   const platformUrl = payload.get("platformUrl")?.toString();
   const userId = parseInt(payload.get("userId") as string, 10);
