@@ -41,13 +41,16 @@ export function UserProfile({ loggedUser }: Props) {
       </div>
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-1 text-gray-700 border border-gray-200">
-          <div className="flex items-center space-x-2 bg-gray-100 p-2  my-1 border-b border-black">
-            <span className="font-semibold text-sm">{loggedUser?.name}</span>
-          </div>
-          <div className="flex items-center space-x-2 bg-gray-100 p-2  my-1 border-b border-black">
-            <span className="text-sm">{loggedUser?.email}</span>
-          </div>
-
+          <Link href={`/user-card/${loggedUser?.id}`}>
+            <div className="hover:bg-gray-100 p-2 cursor-pointer flex items-center space-x-2 bg-gray-100 my-1 border-b border-black">
+              <span className="font-semibold text-sm">{loggedUser?.name}</span>
+            </div>
+          </Link>
+          <Link href={`/user-card/${loggedUser?.id}`}>
+            <div className="hover:bg-gray-100 p-2 cursor-pointer flex items-center space-x-2 bg-gray-100  my-1 border-b border-black">
+              <span className="text-sm">{loggedUser?.email}</span>
+            </div>
+          </Link>
           <SignOutButton />
         </div>
       )}
