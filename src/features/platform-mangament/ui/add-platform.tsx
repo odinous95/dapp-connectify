@@ -15,7 +15,7 @@ export function AddPlatform({ userId }: Props) {
   return (
     <div className="mt-3 text-gray-300 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-gray-400">
       <div className="flex flex-col items-center justify-center h-fit">
-        <div className="bg-gray-50 dark:bg-gray-800 dark:text-gray-400 rounded-2xl m-auto p-2 w-full max-w-md sm:p-8 md:max-w-lg md:p-8 lg:max-w-xl xl:max-w-2xl">
+        <div className="bg-gray-50 dark:bg-gray-800 dark:text-gray-400 rounded-2xl m-auto p-2 w-full max-w-md sm:p-4 md:max-w-lg md:p-4 lg:max-w-xl xl:max-w-2xl">
           <div className="flex flex-col gap-4">
             <form action={formAction} className="space-y-6">
               <Input
@@ -51,7 +51,7 @@ export function AddPlatform({ userId }: Props) {
               <SubmitButton title={"Add Platform"} pending={isPending} />
               {state && (
                 <div
-                  className={`mt-4 flex items-center space-x-2 rounded-md p-3 text-sm ${
+                  className={`mt-1 flex items-center space-x-2 rounded-md p-1 text-sm ${
                     state.success ? "text-green-600" : "text-red-600"
                   }`}
                   aria-live="polite"

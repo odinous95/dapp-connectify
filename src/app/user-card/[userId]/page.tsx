@@ -1,23 +1,22 @@
 import { cardFeature } from "@/features/card-mangament";
 import Image from "next/image";
+import Link from "next/link";
+import { Page } from "@/ui/pages-layout";
+import { getSession } from "../../../lib/session";
 import {
   ProfileCardAdmin,
   ProfileCardUser,
   QRCodeCard,
 } from "@/features/card-mangament/ui";
-import { Page } from "@/ui/pages-layout";
-import { getSession } from "../../../lib/session";
-import { SignOutButton } from "@/features/user-managment/ui";
 import {
   AddPlatform,
   ProfileSocialLink,
 } from "@/features/platform-mangament/ui";
 import { platformFeature } from "@/features/platform-mangament";
-import DefaultImage from "@/public/profile-placeholder.svg";
-import Link from "next/link";
+
 import { userFeature } from "@/features/user-managment";
-import { UserProfile } from "@/features/user-managment/ui/user-profile";
-import { Heading, Logo } from "@/ui/components";
+import { UserProfile } from "@/features/user-managment/ui";
+import { Logo } from "@/ui/components";
 
 type JWTPayload = {
   payload: {
@@ -97,11 +96,11 @@ export default async function UserProfilePage({
               <div className="flex overflow-x-auto mb-10 scrollbar-hidden space-x-4 p-4 max-w-3xl">
                 {users &&
                   users.map((user) => (
-                    <div>
+                    <div key={user.id}>
                       <Link
                         href={`/user-card/${user?.id}`}
                         key={user.id}
-                        className="flex flex-col items-center space-y-2 bg-gray-300 py-2 px-2 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-gray-100"
+                        className="flex flex-col bg-gray-100 dark:bg-gray-800 dark:text-gray-400 items-center space-y-2  py-2 px-2 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-gray-200"
                       >
                         <Image
                           src={
