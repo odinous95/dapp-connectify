@@ -6,10 +6,10 @@ export function Logo() {
     <Link href={"/"}>
       <Image
         alt="logo"
-        className="hidden md:block cursor-pointer w-auto h-auto"
-        height="60"
-        width="60"
-        sizes="80px"
+        className=" md:block cursor-pointer w-auto h-auto"
+        height="20"
+        width="20"
+        sizes="40px"
         src="/logo-connectify.png"
       />
     </Link>

@@ -16,6 +16,9 @@ import { platformFeature } from "@/features/platform-mangament";
 import DefaultImage from "@/public/profile-placeholder.svg";
 import Link from "next/link";
 import { userFeature } from "@/features/user-managment";
+import { UserProfile } from "@/features/user-managment/ui/user-profile";
+import { Logo } from "@/ui/components";
+
 type JWTPayload = {
   payload: {
     id: string;
@@ -34,8 +37,6 @@ export default async function UserProfilePage({
 }) {
   const session = (await getSession()) as JWTPayload | null;
   const sessionUserId = session?.payload.id;
-  console.log(sessionUserId);
-  const userEmail = session?.payload.email;
   const { userId } = await params;
   const user = await cardFeature.service.getUserProfileById(userId);
   const { userProfile } = user;
@@ -61,27 +62,15 @@ export default async function UserProfilePage({
       <section className="flex flex-col items-center justify-center py-10">
         {sessionUserId && userProfile && (
           <div className="flex items-center justify-between w-full p-4 bg-gray-800 text-white shadow-md fixed top-0 left-0 z-10">
-            <div className="flex items-center space-x-4">
-              <span className="bg-green-800 p-1 rounded-full">On</span>
-              <div className="relative">
-                <Link href={`/user-card/${sessionUserId}`}>
-                  <Image
-                    src={loggedUser?.profileImageUrl || DefaultImage.src}
-                    alt="User Avatar"
-                    className="h-10 w-15 rounded-full object-cover"
-                    width={40}
-                    height={40}
-                  />
-                </Link>
-              </div>
-              <span className="text-sm font-semibold">{` | ${userEmail}`}</span>
+            <div className="flex items-center">
+              <Logo />
+              <span className="text-lg font-semibold">onnetify</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <SignOutButton />
+            <div className="ml-auto">
+              {loggedUser && <UserProfile loggedUser={loggedUser} />}
             </div>
           </div>
         )}
-
         <div className="mt-8 w-full max-w-3xl">
           <div className="flex flex-row px-4 py-4 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
             <div className="basis-3/4">

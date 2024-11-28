@@ -50,11 +50,22 @@ export function createRepository() {
   }
   async function getLoggedInUserFromDb(sessionUserId: string) {
     const [user] = await db
-      .select()
+      .select({
+        profileImageUrl: userTable.profileImageUrl,
+        email: userTable.email,
+        id: userTable.id,
+        name: userTable.name,
+        phone: userTable.phone,
+        joinDate: userTable.joinDate,
+        status: userTable.status,
+        biography: userTable.biography,
+      })
       .from(userTable)
-      .where(eq(userTable.id, Number(sessionUserId)));
+      .where(eq(userTable.id, Number(sessionUserId))); // Assuming `sessionUserId` is a string
+
     return user;
   }
+
   async function setProfileImageUrlInDb(userId: number, imageUrl: string) {
     await db
       .update(userTable)
