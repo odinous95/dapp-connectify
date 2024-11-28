@@ -15,6 +15,7 @@ import {
 import { platformFeature } from "@/features/platform-mangament";
 import DefaultImage from "@/public/profile-placeholder.svg";
 import Link from "next/link";
+import { userFeature } from "@/features/user-managment";
 type JWTPayload = {
   payload: {
     id: string;
@@ -33,6 +34,7 @@ export default async function UserProfilePage({
 }) {
   const session = (await getSession()) as JWTPayload | null;
   const sessionUserId = session?.payload.id;
+  console.log(sessionUserId);
   const userEmail = session?.payload.email;
   const { userId } = await params;
   const user = await cardFeature.service.getUserProfileById(userId);
@@ -50,6 +52,10 @@ export default async function UserProfilePage({
     );
   }
   const platforms = await platformFeature.service.getPlatformsByUserId(userId);
+  const loggedUser = sessionUserId
+    ? await userFeature.service.getLoggedInUser(sessionUserId)
+    : null;
+
   return (
     <Page title="">
       <section className="flex flex-col items-center justify-center py-10">
@@ -60,7 +66,7 @@ export default async function UserProfilePage({
               <div className="relative">
                 <Link href={`/user-card/${sessionUserId}`}>
                   <Image
-                    src={userProfile.profileImageUrl || DefaultImage.src}
+                    src={loggedUser?.profileImageUrl || DefaultImage.src}
                     alt="User Avatar"
                     className="h-10 w-15 rounded-full object-cover"
                     width={40}

@@ -100,6 +100,10 @@ export function createService(repository: Repository) {
     const users = await repository.getAllUsersFromDb();
     return users;
   }
+  async function getLoggedInUser(sessionUserId: string) {
+    const user = await repository.getLoggedInUserFromDb(sessionUserId);
+    return user;
+  }
 
   async function setProfileImageUrl(userId: number, imageUrl: string) {
     await repository.setProfileImageUrlInDb(userId, imageUrl);
@@ -109,5 +113,6 @@ export function createService(repository: Repository) {
     signin,
     getAllUsers,
     setProfileImageUrl,
+    getLoggedInUser,
   };
 }

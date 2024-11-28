@@ -48,6 +48,13 @@ export function createRepository() {
     const users = db.select().from(userTable);
     return users;
   }
+  async function getLoggedInUserFromDb(sessionUserId: string) {
+    const [user] = await db
+      .select()
+      .from(userTable)
+      .where(eq(userTable.id, Number(sessionUserId)));
+    return user;
+  }
   async function setProfileImageUrlInDb(userId: number, imageUrl: string) {
     await db
       .update(userTable)
@@ -59,6 +66,7 @@ export function createRepository() {
     signinUserInDb,
     getAllUsersFromDb,
     setProfileImageUrlInDb,
+    getLoggedInUserFromDb,
   };
 }
 
