@@ -2,7 +2,7 @@ import { cardFeature } from "@/features/card-mangament";
 import { ProfileCard } from "@/features/card-mangament/ui";
 import { Page } from "@/ui/pages";
 import { getSession } from "@/lib/session";
-import { SignOutButton } from "@/features/user-managment/ui";
+import { ImageInput, SignOutButton } from "@/features/user-managment/ui";
 import {
   AddPlatform,
   ProfileSocialLink,
@@ -60,7 +60,9 @@ export default async function UserProfilePage({
           </div>
         )}
         <div className="mt-8 w-full max-w-3xl">
+          {sessionUserId === userId && <ImageInput />}
           <ProfileCard userProfile={response.userProfile} />
+
           {platforms &&
             platforms.map((item) => (
               <ProfileSocialLink key={item.id} platform={item} />

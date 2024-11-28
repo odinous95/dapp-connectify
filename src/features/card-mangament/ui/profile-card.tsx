@@ -1,7 +1,3 @@
-import {
-  AddPlatform,
-  ProfileSocialLink,
-} from "@/features/platform-mangament/ui";
 import { ProfileImage, ProfileBio } from ".";
 import { PROFILE } from "../types";
 

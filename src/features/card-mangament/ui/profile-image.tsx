@@ -4,8 +4,7 @@ import Image from "next/image";
 export function ProfileImage() {
   return (
     <div className="relative flex-shrink-0 w-24 h-24 ">
-      <ImageInput />
-      <Image
+      {/* <Image
         src={"/odin.png"}
         // loader={}
         // blurDataURL={}
@@ -14,7 +13,7 @@ export function ProfileImage() {
         // placeholder="blur"
         layout="fill"
         className="rounded-full"
-      />
+      /> */}
     </div>
   );
 }

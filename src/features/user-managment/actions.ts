@@ -53,3 +53,7 @@ export async function signoutAction() {
   await logout();
   redirect("/sign-in");
 }
+
+export async function uploadImageAction() {
+  console.log("helelo");
+}
