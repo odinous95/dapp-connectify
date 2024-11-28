@@ -5,15 +5,15 @@ export async function uploadFileToS3(
   key: string,
   fileContent: any
 ) {
-  // console.log("Access Key:", process.env.access_key);
-  // console.log("Secret Key:", process.env.secret_key);
-  // console.log("Secret Key:", process.env.DATABASE_URL);
+  console.log("Access Key:", process.env.access_key);
+  console.log("Secret Key:", process.env.secret_key);
+  console.log("Secret Key:", process.env.DATABASE_URL);
 
   const s3Client = new S3Client({
     region: "eu-north-1",
     credentials: {
-      accessKeyId: "AKIAQGYBQCX3DSOAMK2M",
-      secretAccessKey: "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",
+      accessKeyId: process.env.accessKeyId,
+      secretAccessKey: process.env.secretAccessKey,
     },
   });
   const params = {
