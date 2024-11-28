@@ -35,9 +35,9 @@ export default async function UserProfilePage({
   const sessionUserId = session?.payload.id;
   const userEmail = session?.payload.email;
   const { userId } = await params;
-  const response = await cardFeature.service.getUserProfileById(userId);
-  const { userProfile } = response;
-  if (!response.success || !response.userProfile) {
+  const user = await cardFeature.service.getUserProfileById(userId);
+  const { userProfile } = user;
+  if (!user.success || !user.userProfile) {
     return (
       <Page title="">
         <section className="flex flex-col items-center justify-center h-full text-center">
