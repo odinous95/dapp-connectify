@@ -88,7 +88,6 @@ export async function imageUploadAction(preState: unknown, payload: FormData) {
       bufferData
     );
     const profileImageUrl = `https://${bucketName}.s3.${"eu-north-1"}.amazonaws.com/${key}`;
-    console.log(profileImageUrl);
     userFeature.service.setProfileImageUrl(userId, profileImageUrl);
     if (response) {
       return {
