@@ -11,7 +11,7 @@ type Props = {
   profileImg: string | null;
   userId: number;
 };
-export function ImageInput({ profileImg }: Props) {
+export function ImageInput({ userId, profileImg }: Props) {
   const fileUploadRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [avatarURL, setAvatarURL] = useState<string>(DefaultImage.src);
@@ -72,6 +72,8 @@ export function ImageInput({ profileImg }: Props) {
           accept="image/*"
           onChange={handlePreviewImage}
         />
+
+        <input id="userId" type="hidden" name="userId" defaultValue={userId} />
         <button
           type="submit"
           disabled={isUploading}

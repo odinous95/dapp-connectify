@@ -20,7 +20,7 @@ export async function uploadFileToS3(
     Body: fileContent,
     Bucket: bucketName,
     Key: key,
-    ContentType: fileContent.type,
+    ContentType: "image/png", // You can dynamically set this if needed
   };
   try {
     const command = new PutObjectCommand(params);
