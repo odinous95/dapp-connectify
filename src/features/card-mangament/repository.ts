@@ -11,6 +11,7 @@ export function createRepository() {
         phone: userTable.phone,
         status: userTable.status,
         biography: userTable.biography,
+        profileImageUrl: userTable.profileImageUrl,
       })
       .from(userTable)
       .where(eq(userTable.id, Number(userId)));

@@ -28,7 +28,7 @@ export function ImageInput() {
 
   return (
     <div className="relative h-20 w-40">
-      <form action={formAction} id="form" encType="multipart/form-data">
+      <form action={formAction} id="form">
         <Image
           src={avatarURL}
           alt="Avatar"

@@ -1,5 +1,9 @@
 import { cardFeature } from "@/features/card-mangament";
-import { ProfileCard } from "@/features/card-mangament/ui";
+import {
+  ProfileBio,
+  ProfileCard,
+  ProfileImage,
+} from "@/features/card-mangament/ui";
 import { Page } from "@/ui/pages";
 import { getSession } from "@/lib/session";
 import { ImageInput, SignOutButton } from "@/features/user-managment/ui";
@@ -31,6 +35,7 @@ export default async function UserProfilePage({
   const { userId } = await params;
 
   const response = await cardFeature.service.getUserProfileById(userId);
+  const { userProfile } = response;
   if (!response.success || !response.userProfile) {
     return (
       <Page title="">
@@ -44,6 +49,7 @@ export default async function UserProfilePage({
     );
   }
   const platforms = await platformFeature.service.getPlatformsByUserId(userId);
+
   return (
     <Page title="">
       <section className="flex flex-col items-center justify-center py-10">
@@ -60,8 +66,19 @@ export default async function UserProfilePage({
           </div>
         )}
         <div className="mt-8 w-full max-w-3xl">
-          {sessionUserId === userId && <ImageInput />}
-          <ProfileCard userProfile={response.userProfile} />
+          {/* {sessionUserId === userId && <ImageInput />} */}
+
+          <div className="px-8 py-8 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
+            {userProfile && (
+              <div className="flex flex-wrap items-start sm:space-x-8 sm:flex-nowrap">
+                <ProfileImage image={userProfile.profileImageUrl ?? ""} />
+                <ProfileBio
+                  biography={userProfile.biography}
+                  name={userProfile.name}
+                />
+              </div>
+            )}
+          </div>
 
           {platforms &&
             platforms.map((item) => (
