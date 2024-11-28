@@ -6,8 +6,8 @@ type Props = {
 
 export function Heading({ title }: Props) {
   return (
-    <div>
-      <h2 className="text-3xl font-bold text-black">{title}</h2>
-    </div>
+    <>
+      <h2 className="text-gray-700 dark:text-gray-300">{title}</h2>
+    </>
   );
 }
