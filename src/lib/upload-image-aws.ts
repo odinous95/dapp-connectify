@@ -1,8 +1,6 @@
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import dotenv from "dotenv";
 dotenv.config();
-console.log(process.env.SECERET_KEY);
-console.log(process.env);
 export async function uploadFileToS3(
   bucketName: string,
   key: string,
@@ -22,7 +20,7 @@ export async function uploadFileToS3(
     Body: fileContent,
     Bucket: bucketName,
     Key: key,
-    ContentType: "image/png", // You can dynamically set this if needed
+    ContentType: "image/png",
   };
   try {
     const command = new PutObjectCommand(params);
