@@ -1,83 +1,109 @@
 "use client";
 
-import { useActionState } from "react";
-import { uploadImageAction } from "../actions";
 import { useState, useRef } from "react";
 import DefaultImage from "@/public/profile-placeholder.svg";
-import EditIcon from "/public/edit.svg";
+import EditIcon from "@/public/edit.svg";
 import Image from "next/image";
+
 export function ImageInput() {
-  const [state, formAction, isPending] = useActionState(
-    uploadImageAction,
-    null
-  );
-  const [avatarURL, setAvatarURL] = useState(DefaultImage);
+  const [avatarURL, setAvatarURL] = useState<string>(DefaultImage.src);
   const fileUploadRef = useRef<HTMLInputElement>(null);
-  const handleImageUpload = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleImageSelection = () => {
     fileUploadRef.current?.click();
   };
 
-  const uploadImageDisplay = async () => {
+  const handlePreviewImage = () => {
     if (fileUploadRef.current && fileUploadRef.current.files) {
       const uploadedFile = fileUploadRef.current.files[0];
-      const cachedURL = URL.createObjectURL(uploadedFile);
-      setAvatarURL(cachedURL);
+      if (uploadedFile) {
+        const cachedURL = URL.createObjectURL(uploadedFile);
+        setAvatarURL(cachedURL);
+      }
+    }
+  };
+
+  const handleUploadImage = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+
+    if (!fileUploadRef.current || !fileUploadRef.current.files?.[0]) {
+      alert("Please select an image to upload.");
+      return;
+    }
+
+    // Confirm before uploading
+    const confirmUpload = window.confirm(
+      "Are you sure you want to upload this image?"
+    );
+    if (!confirmUpload) {
+      return;
+    }
+
+    const selectedFile = fileUploadRef.current.files[0];
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    setIsUploading(true);
+
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert("Image uploaded successfully!");
+      } else {
+        alert("Image upload failed!");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      alert("Error uploading image!");
+    } finally {
+      setIsUploading(false);
     }
   };
 
   return (
     <div className="relative h-20 w-40">
-      <form action={formAction} id="form">
-        <Image
-          src={avatarURL}
-          alt="Avatar"
-          className="h-20 w-20 rounded-full object-cover"
-          width={20}
-          height={20}
-        />
-
-        <button
-          type="submit"
-          onClick={handleImageUpload}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center h-8 w-8 rounded-full bg-white shadow-lg"
-          title="Edit Avatar"
-        >
-          <Image src={EditIcon} alt="Edit" className="h-5 w-5 object-cover" />
-        </button>
-
+      <form encType="multipart/form-data">
+        {/* Profile image preview */}
+        <div className="relative">
+          <Image
+            src={avatarURL}
+            alt="Avatar"
+            className="h-20 w-20 rounded-full object-cover"
+            width={80}
+            height={80}
+          />
+          <button
+            type="button"
+            onClick={handleImageSelection}
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center h-8 w-8 rounded-full bg-white shadow-lg"
+            title="Edit Avatar"
+          >
+            <Image src={EditIcon} alt="Edit" className="h-5 w-5 object-cover" />
+          </button>
+        </div>
         <input
           type="file"
-          id="file"
           ref={fileUploadRef}
           hidden
-          onChange={uploadImageDisplay}
+          accept="image/*"
+          onChange={handlePreviewImage}
         />
+        <button
+          type="button"
+          onClick={handleUploadImage}
+          disabled={isUploading}
+          className="p-2 m-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+        >
+          {isUploading ? "Uploading..." : "Upload"}
+        </button>
       </form>
     </div>
   );
-}
-
-{
-  /* <div className="profile-image-upload">
-          <input
-            id="file"
-            name="image"
-            type="file"
-            accept="image/*"
-            hidden
-            className="hidden-input"
-          />
-          <label htmlFor="image" className="image-placeholder">
-            <span className="plus-sign">+</span>
-          </label>
-        </div> */
-}
-
-{
-  /* {state?.errors?.image && (
-        <strong className="mt-1 text-sm text-red-600">
-          {state.errors.image}
-        </strong>
-      )} */
 }
