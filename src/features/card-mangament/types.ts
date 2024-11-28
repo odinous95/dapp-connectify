@@ -18,5 +18,5 @@ export type PROFILE = {
   phone: string | null;
   status: string | null;
   biography: string | null;
-  profileImageUrl?: string | null;
+  profileImageUrl: string | null;
 };

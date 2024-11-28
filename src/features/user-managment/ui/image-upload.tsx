@@ -5,7 +5,10 @@ import DefaultImage from "@/public/profile-placeholder.svg";
 import EditIcon from "@/public/edit.svg";
 import Image from "next/image";
 
-export function ImageInput() {
+type Props = {
+  profileImg: string | null;
+};
+export function ImageInput({ profileImg }: Props) {
   const [avatarURL, setAvatarURL] = useState<string>(DefaultImage.src);
   const fileUploadRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -13,7 +16,6 @@ export function ImageInput() {
   const handleImageSelection = () => {
     fileUploadRef.current?.click();
   };
-
   const handlePreviewImage = () => {
     if (fileUploadRef.current && fileUploadRef.current.files) {
       const uploadedFile = fileUploadRef.current.files[0];
@@ -23,7 +25,6 @@ export function ImageInput() {
       }
     }
   };
-
   const handleUploadImage = async (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -70,15 +71,24 @@ export function ImageInput() {
   return (
     <div className="relative h-20 w-40">
       <form encType="multipart/form-data">
-        {/* Profile image preview */}
         <div className="relative">
-          <Image
-            src={avatarURL}
-            alt="Avatar"
-            className="h-20 w-20 rounded-full object-cover"
-            width={80}
-            height={80}
-          />
+          {profileImg && profileImg ? (
+            <Image
+              src={profileImg}
+              alt="Avatar"
+              className="h-20 w-20 rounded-full object-cover"
+              width={80}
+              height={80}
+            />
+          ) : (
+            <Image
+              src={avatarURL}
+              alt="Avatar"
+              className="h-20 w-20 rounded-full object-cover"
+              width={80}
+              height={80}
+            />
+          )}
           <button
             type="button"
             onClick={handleImageSelection}
@@ -99,7 +109,7 @@ export function ImageInput() {
           type="button"
           onClick={handleUploadImage}
           disabled={isUploading}
-          className="p-2 m-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="p-1 m-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700 disabled:opacity-50"
         >
           {isUploading ? "Uploading..." : "Upload"}
         </button>

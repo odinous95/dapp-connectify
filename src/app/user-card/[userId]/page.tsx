@@ -1,8 +1,8 @@
 import { cardFeature } from "@/features/card-mangament";
 import {
   ProfileBio,
-  ProfileCard,
-  ProfileImage,
+  ProfileCardAdmin,
+  ProfileCardUser,
 } from "@/features/card-mangament/ui";
 import { Page } from "@/ui/pages";
 import { getSession } from "@/lib/session";
@@ -66,17 +66,18 @@ export default async function UserProfilePage({
           </div>
         )}
         <div className="mt-8 w-full max-w-3xl">
-          {/* {sessionUserId === userId && <ImageInput />} */}
-
           <div className="px-8 py-8 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
-            {userProfile && (
+            {userProfile && sessionUserId !== userId && (
               <div className="flex flex-wrap items-start sm:space-x-8 sm:flex-nowrap">
-                <ProfileImage image={userProfile.profileImageUrl ?? ""} />
+                <ProfileCardUser userProfile={userProfile} />
                 <ProfileBio
                   biography={userProfile.biography}
                   name={userProfile.name}
                 />
               </div>
+            )}
+            {sessionUserId === userId && userProfile && (
+              <ProfileCardAdmin userProfile={userProfile} />
             )}
           </div>
 
