@@ -1,8 +1,7 @@
 import { signInSchema, signUpSchema } from "@/zod/zod-validation";
 import { Repository } from "./repository";
-import { cookies } from "next/headers";
 import { SIGNUP_ERRORS, SIGNUP_PAYLOAD, SIGNIN_PAYLOAD } from "./types";
-import { encrypt } from "@/lib/session";
+import { createSession } from "../../lib/session";
 
 export function createService(repository: Repository) {
   async function signup({ email, password, name }: SIGNUP_PAYLOAD) {
@@ -69,6 +68,7 @@ export function createService(repository: Repository) {
       const signedInUser = await repository.signinUserInDb(
         signInValidated.data
       );
+
       if (signedInUser?.error) {
         return {
           success: false,
@@ -76,9 +76,11 @@ export function createService(repository: Repository) {
           errors: signedInUser.error,
         };
       }
-      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
-      const session = await encrypt({ signedInUser, expires });
-      (await cookies()).set("session", session, { expires, httpOnly: true });
+      if (signedInUser.id) {
+        await createSession(signedInUser.id);
+      } else {
+        throw new Error("User ID is undefined");
+      }
       return {
         user: signedInUser,
         success: true,
@@ -98,9 +100,14 @@ export function createService(repository: Repository) {
     const users = await repository.getAllUsersFromDb();
     return users;
   }
+
+  async function setProfileImageUrl(userId: number, imageUrl: string) {
+    await repository.setProfileImageUrlInDb(userId, imageUrl);
+  }
   return {
     signup,
     signin,
     getAllUsers,
+    setProfileImageUrl,
   };
 }

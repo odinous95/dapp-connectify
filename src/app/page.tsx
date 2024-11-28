@@ -1,4 +1,4 @@
-import { Page } from "@/ui/pages";
+import { Page } from "@/ui/pages-layout";
 
 const data = { total: 10, sick: 5 };
 export default function Home() {

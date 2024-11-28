@@ -2,7 +2,7 @@
 import { redirect } from "next/navigation";
 import { userFeature } from ".";
 import { SIGNIN_ERRORS, SIGNUP_ERRORS } from "./types";
-import { createSession, logout } from "@/lib/session";
+import { createSession, logout } from "../../lib/session";
 
 export async function signupAction(preState: unknown, payload: FormData) {
   const email = payload.get("email")?.toString();
@@ -54,6 +54,46 @@ export async function signoutAction() {
   redirect("/sign-in");
 }
 
-export async function uploadImageAction() {
-  console.log("helelo");
+export async function imageUploadAction(preState: unknown, payload: FormData) {
+  const file = payload.get("file")?.toString();
+  console.log(file);
+  // const handleUploadImage = async () => {
+  //   if (!fileUploadRef.current || !fileUploadRef.current.files?.[0]) {
+  //     alert("Please select an image to upload.");
+  //     return;
+  //   }
+  //   const selectedFile = fileUploadRef.current.files[0];
+  //   const maxFileSize = 5 * 1024 * 1024;
+  //   if (!selectedFile.type.startsWith("image/")) {
+  //     alert("Please upload a valid image file.");
+  //     return;
+  //   }
+  //   if (selectedFile.size > maxFileSize) {
+  //     alert("File size exceeds 5MB. Please select a smaller file.");
+  //     return;
+  //   }
+  //   const confirmUpload = window.confirm(
+  //     `Are you sure you want to upload the image "${selectedFile.name}"?`
+  //   );
+  //   if (!confirmUpload) return;
+  //   setIsUploading(true);
+  //   try {
+  //     const key = `${"profile"}/${Date.now()}_${selectedFile.name}`;
+  //     const response = await uploadFileToS3(
+  //       "conncitfy-bucket-salt",
+  //       key,
+  //       selectedFile
+  //     );
+  //     if (response) {
+  //       alert("Image uploaded successfully!");
+  //     } else {
+  //       alert("Image upload failed!");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //     alert("Error uploading image. Please try again.");
+  //   } finally {
+  //     setIsUploading(false);
+  //   }
+  // };
 }

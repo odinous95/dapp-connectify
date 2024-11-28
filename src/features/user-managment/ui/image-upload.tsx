@@ -1,18 +1,20 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useActionState } from "react";
 import DefaultImage from "@/public/profile-placeholder.svg";
 import EditIcon from "@/public/edit.svg";
 import Image from "next/image";
+// import { uploadFileToS3 } from "../../../lib/upload-image-aws";
+import { imageUploadAction } from "../actions";
 
 type Props = {
   profileImg: string | null;
+  userId: number;
 };
 export function ImageInput({ profileImg }: Props) {
-  const [avatarURL, setAvatarURL] = useState<string>(DefaultImage.src);
   const fileUploadRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
-
+  const [avatarURL, setAvatarURL] = useState<string>(DefaultImage.src);
   const handleImageSelection = () => {
     fileUploadRef.current?.click();
   };
@@ -25,52 +27,14 @@ export function ImageInput({ profileImg }: Props) {
       }
     }
   };
-  const handleUploadImage = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-
-    if (!fileUploadRef.current || !fileUploadRef.current.files?.[0]) {
-      alert("Please select an image to upload.");
-      return;
-    }
-
-    // Confirm before uploading
-    const confirmUpload = window.confirm(
-      "Are you sure you want to upload this image?"
-    );
-    if (!confirmUpload) {
-      return;
-    }
-
-    const selectedFile = fileUploadRef.current.files[0];
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-
-    setIsUploading(true);
-
-    try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        alert("Image uploaded successfully!");
-      } else {
-        alert("Image upload failed!");
-      }
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      alert("Error uploading image!");
-    } finally {
-      setIsUploading(false);
-    }
-  };
+  const [state, formAction, isPending] = useActionState(
+    imageUploadAction,
+    null
+  );
 
   return (
     <div className="relative h-20 w-40">
-      <form encType="multipart/form-data">
+      <form encType="multipart/form-data" action={formAction}>
         <div className="relative">
           {profileImg && profileImg ? (
             <Image
@@ -100,14 +64,15 @@ export function ImageInput({ profileImg }: Props) {
         </div>
         <input
           type="file"
+          id="file"
+          name="file"
           ref={fileUploadRef}
           hidden
           accept="image/*"
           onChange={handlePreviewImage}
         />
         <button
-          type="button"
-          onClick={handleUploadImage}
+          type="submit"
           disabled={isUploading}
           className="p-1 m-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700 disabled:opacity-50"
         >

@@ -5,12 +5,16 @@ type ProfileBioProps = {
 
 export function ProfileBio({ biography, name }: ProfileBioProps) {
   return (
-    <div>
-      <h2 className="text-lg font-semibold text-white">{name}</h2>
+    <div className="p-4">
+      <h2 className="text-lg font-semibold text-black dark:text-white">
+        {name}
+      </h2>
       {biography ? (
-        <p className="text-lg text-white">{biography}</p>
+        <p className="text-lg text-gray-800 dark:text-white">{biography}</p>
       ) : (
-        <p className="text-sm text-gray-400">No biography available yet</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          No biography available yet
+        </p>
       )}
     </div>
   );

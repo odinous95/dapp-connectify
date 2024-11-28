@@ -48,11 +48,18 @@ export function createRepository() {
     const users = db.select().from(userTable);
     return users;
   }
+  async function setProfileImageUrlInDb(userId: number, imageUrl: string) {
+    await db
+      .update(userTable)
+      .set({ profileImageUrl: imageUrl })
+      .where(eq(userTable.id, userId));
+  }
 
   return {
     signupUserInDb,
     signinUserInDb,
     getAllUsersFromDb,
+    setProfileImageUrlInDb,
   };
 }
 

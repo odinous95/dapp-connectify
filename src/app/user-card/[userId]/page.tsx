@@ -1,12 +1,11 @@
 import { cardFeature } from "@/features/card-mangament";
 import {
-  ProfileBio,
   ProfileCardAdmin,
   ProfileCardUser,
 } from "@/features/card-mangament/ui";
-import { Page } from "@/ui/pages";
-import { getSession } from "@/lib/session";
-import { ImageInput, SignOutButton } from "@/features/user-managment/ui";
+import { Page } from "@/ui/pages-layout";
+import { getSession } from "../../../lib/session";
+import { SignOutButton } from "@/features/user-managment/ui";
 import {
   AddPlatform,
   ProfileSocialLink,
@@ -68,19 +67,12 @@ export default async function UserProfilePage({
         <div className="mt-8 w-full max-w-3xl">
           <div className="px-8 py-8 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
             {userProfile && sessionUserId !== userId && (
-              <div className="flex flex-wrap items-start sm:space-x-8 sm:flex-nowrap">
-                <ProfileCardUser userProfile={userProfile} />
-                <ProfileBio
-                  biography={userProfile.biography}
-                  name={userProfile.name}
-                />
-              </div>
+              <ProfileCardUser userProfile={userProfile} />
             )}
             {sessionUserId === userId && userProfile && (
               <ProfileCardAdmin userProfile={userProfile} />
             )}
           </div>
-
           {platforms &&
             platforms.map((item) => (
               <ProfileSocialLink key={item.id} platform={item} />
