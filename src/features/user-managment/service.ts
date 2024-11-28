@@ -76,8 +76,8 @@ export function createService(repository: Repository) {
           errors: signedInUser.error,
         };
       }
-      if (signedInUser.id) {
-        await createSession(signedInUser.id);
+      if (signedInUser) {
+        await createSession(signedInUser);
       } else {
         throw new Error("User ID is undefined");
       }

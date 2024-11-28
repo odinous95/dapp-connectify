@@ -54,7 +54,6 @@ export function createRepository() {
       .set({ profileImageUrl: imageUrl })
       .where(eq(userTable.id, userId));
   }
-
   return {
     signupUserInDb,
     signinUserInDb,

@@ -13,7 +13,7 @@ import {
 import { platformFeature } from "@/features/platform-mangament";
 
 type JWTPayload = {
-  signedInUser: {
+  payload: {
     id: string;
     name: string;
     email: string;
@@ -29,16 +29,11 @@ export default async function UserProfilePage({
   params: Promise<{ userId: string }>;
 }) {
   const session = (await getSession()) as JWTPayload | null;
-  const sessionUserId = session?.signedInUser?.id;
-  const userEmail = session?.signedInUser?.email;
+  const sessionUserId = session?.payload.id;
+  const userEmail = session?.payload.email;
   const { userId } = await params;
-
-  console.log(session);
-
   const response = await cardFeature.service.getUserProfileById(userId);
-
   const { userProfile } = response;
-  // console.log(userProfile);
   if (!response.success || !response.userProfile) {
     return (
       <Page title="">
@@ -52,11 +47,10 @@ export default async function UserProfilePage({
     );
   }
   const platforms = await platformFeature.service.getPlatformsByUserId(userId);
-
   return (
     <Page title="">
       <section className="flex flex-col items-center justify-center py-10">
-        {sessionUserId === userId && userProfile && (
+        {sessionUserId && (
           <div className="flex items-center justify-between w-full p-4 bg-gray-800 text-white shadow-md fixed top-0 left-0 z-10">
             <div className="flex items-center">
               <span className="text-lg font-semibold">
