@@ -13,13 +13,10 @@ export function ProfileCardUser({ userProfile }: Props) {
         {userProfile.profileImageUrl && (
           <Image
             src={userProfile.profileImageUrl}
-            // loader={}
-            // blurDataURL={}
-            objectFit="cover"
+            className="h-20 w-20 rounded-full object-cover"
             alt={"Profile name"}
-            // placeholder="blur"
-            layout="fill"
-            className="rounded-full"
+            width={80}
+            height={80}
           />
         )}
         <Image

@@ -2,6 +2,7 @@ import { cardFeature } from "@/features/card-mangament";
 import {
   ProfileCardAdmin,
   ProfileCardUser,
+  QRCodeCard,
 } from "@/features/card-mangament/ui";
 import { Page } from "@/ui/pages-layout";
 import { getSession } from "../../../lib/session";
@@ -62,14 +63,20 @@ export default async function UserProfilePage({
             </div>
           </div>
         )}
+
         <div className="mt-8 w-full max-w-3xl">
-          <div className="px-8 py-8 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
-            {sessionUserId === userId && userProfile && (
-              <ProfileCardAdmin userProfile={userProfile} />
-            )}
-            {userProfile && sessionUserId !== userId && (
-              <ProfileCardUser userProfile={userProfile} />
-            )}
+          <div className="flex flex-row px-4 py-4 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
+            <div className="basis-3/4">
+              {sessionUserId === userId && userProfile && (
+                <ProfileCardAdmin userProfile={userProfile} />
+              )}
+              {userProfile && sessionUserId !== userId && (
+                <ProfileCardUser userProfile={userProfile} />
+              )}
+            </div>
+            <div className="basis-1/6">
+              <QRCodeCard userId={userId} />
+            </div>
           </div>
           {platforms &&
             platforms.map((item) => (
