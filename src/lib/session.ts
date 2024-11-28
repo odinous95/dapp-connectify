@@ -21,9 +21,9 @@ export async function decrypt(session: string | undefined = "") {
     console.log("Failed to verify session");
   }
 }
-export async function createSession(userId: string) {
+export async function createSession(id: string) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ userId, expiresAt });
+  const session = await encrypt({ id, expiresAt });
   (await cookies()).set("session", session, {
     httpOnly: true,
     secure: true,
