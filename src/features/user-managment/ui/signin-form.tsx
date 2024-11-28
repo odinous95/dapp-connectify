@@ -10,7 +10,7 @@ export function LoginForm() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <div className="bg-gray-100 text-black rounded m-auto p-3 w-full max-w-md sm:p-8 md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+      <div className="bg-white dark:bg-gray-800 text-black dark:text-white rounded m-auto p-3 w-full max-w-md sm:p-8 md:max-w-lg lg:max-w-xl xl:max-w-2xl">
         <div className="flex flex-col gap-2">
           <Heading title="Welcome Back!" />
           <form action={formAction}>
@@ -47,8 +47,8 @@ export function LoginForm() {
               <div
                 className={`mt-4 flex items-center space-x-2 rounded-md p-3 text-sm ${
                   state.success
-                    ? "bg-green-50 text-green-600"
-                    : "bg-red-50 text-red-600"
+                    ? "bg-green-50 text-green-600 dark:bg-green-900 dark:text-green-300"
+                    : "bg-red-50 text-red-600 dark:bg-red-900 dark:text-red-300"
                 }`}
                 aria-live="polite"
                 aria-atomic="true"
