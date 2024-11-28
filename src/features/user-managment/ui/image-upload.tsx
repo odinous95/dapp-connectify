@@ -32,9 +32,10 @@ export function ImageInput({ profileImg }: Props) {
     null
   );
 
+  console.log(state, "state form");
   return (
     <div className="relative h-20 w-40">
-      <form encType="multipart/form-data" action={formAction}>
+      <form action={formAction}>
         <div className="relative">
           {profileImg && profileImg ? (
             <Image
@@ -64,8 +65,8 @@ export function ImageInput({ profileImg }: Props) {
         </div>
         <input
           type="file"
-          id="file"
-          name="file"
+          id="imagefile"
+          name="imagefile"
           ref={fileUploadRef}
           hidden
           accept="image/*"

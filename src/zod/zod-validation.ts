@@ -48,6 +48,18 @@ export const platformSchema = z.object({
   platformUrl: z.string().url(),
 });
 
+export const imageFileSchema = z.object({
+  type: z.string().refine((type) => type.startsWith("image/"), {
+    message: "Please upload a valid image file.",
+  }),
+  size: z.number().max(5 * 1024 * 1024, {
+    message: "File size exceeds 5MB. Please select a smaller file.",
+  }),
+  name: z.string().min(1, {
+    message: "File name cannot be empty.",
+  }),
+});
+
 //--------------------------------------------
 export type SignUpFieldValues = z.infer<typeof signUpSchema>;
 export type SignInFieldValues = z.infer<typeof signInSchema>;

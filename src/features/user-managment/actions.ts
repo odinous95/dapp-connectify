@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { userFeature } from ".";
 import { SIGNIN_ERRORS, SIGNUP_ERRORS } from "./types";
 import { createSession, logout } from "../../lib/session";
+import { imageFileSchema } from "@/zod/zod-validation";
+import { uploadFileToS3 } from "@/lib/upload-image-aws";
 
 export async function signupAction(preState: unknown, payload: FormData) {
   const email = payload.get("email")?.toString();
@@ -55,45 +57,53 @@ export async function signoutAction() {
 }
 
 export async function imageUploadAction(preState: unknown, payload: FormData) {
-  const file = payload.get("file")?.toString();
-  console.log(file);
-  // const handleUploadImage = async () => {
-  //   if (!fileUploadRef.current || !fileUploadRef.current.files?.[0]) {
-  //     alert("Please select an image to upload.");
-  //     return;
-  //   }
-  //   const selectedFile = fileUploadRef.current.files[0];
-  //   const maxFileSize = 5 * 1024 * 1024;
-  //   if (!selectedFile.type.startsWith("image/")) {
-  //     alert("Please upload a valid image file.");
-  //     return;
-  //   }
-  //   if (selectedFile.size > maxFileSize) {
-  //     alert("File size exceeds 5MB. Please select a smaller file.");
-  //     return;
-  //   }
-  //   const confirmUpload = window.confirm(
-  //     `Are you sure you want to upload the image "${selectedFile.name}"?`
-  //   );
-  //   if (!confirmUpload) return;
-  //   setIsUploading(true);
-  //   try {
-  //     const key = `${"profile"}/${Date.now()}_${selectedFile.name}`;
-  //     const response = await uploadFileToS3(
-  //       "conncitfy-bucket-salt",
-  //       key,
-  //       selectedFile
-  //     );
-  //     if (response) {
-  //       alert("Image uploaded successfully!");
-  //     } else {
-  //       alert("Image upload failed!");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //     alert("Error uploading image. Please try again.");
-  //   } finally {
-  //     setIsUploading(false);
-  //   }
-  // };
+  const file = payload.get("imagefile") as File;
+
+  if (!file) {
+    return {
+      success: false,
+      message: "No file provided.",
+    };
+  }
+
+  const validation = imageFileSchema.safeParse(file);
+  if (!validation.success) {
+    const errors = validation.error.errors.map((err) => err.message).join("\n");
+    return {
+      success: false,
+      message: "Validation error",
+      errors: errors,
+    };
+  }
+
+  console.log(validation);
+  try {
+    const buffer = await file.arrayBuffer();
+    const bufferData = Buffer.from(buffer);
+    const key = `${"profile"}/${Date.now()}_${file.name}`;
+    const response = await uploadFileToS3(
+      "conncitfy-bucket-salt",
+      key,
+      bufferData
+    );
+    console.log(response);
+    if (response) {
+      return {
+        success: true,
+        message: "Image uploaded successfully!",
+      };
+    } else {
+      return {
+        success: false,
+        message: "Image upload failed!",
+      };
+    }
+  } catch (error) {
+    console.error("Error uploading image:", error);
+    return {
+      success: false,
+      message: "Error uploading image.",
+      error: error,
+    };
+  }
 }
