@@ -62,7 +62,7 @@ export const seedPlatforms = async () => {
 };
 
 const seedAllData = async () => {
-  await seedUsers(10);
+  await seedUsers(30);
   await seedPlatforms();
   console.log("Hurrra! Seeding all data is donne!");
 };
