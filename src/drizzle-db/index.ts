@@ -6,21 +6,21 @@ import { drizzle } from "drizzle-orm/node-postgres";
 //   connectionString: process.env.DATABASE_URL!,
 // });
 
-const pool = new Pool({
-  user: "levantisk",
-  password: "le123123321!",
-  host: "odinobusi.online",
-  port: 5432,
-  database: "levantisk",
-});
-
 // const pool = new Pool({
-//   user: "postgres",
-//   password: "password",
-//   host: "localhost",
+//   user: "levantisk",
+//   password: "le123123321!",
+//   host: "odinobusi.online",
 //   port: 5432,
-//   database: "postgres",
+//   database: "levantisk",
 // });
+
+const pool = new Pool({
+  user: "postgres",
+  password: "password",
+  host: "localhost",
+  port: 5432,
+  database: "postgres",
+});
 
 // async function runQuery() {
 //   const client = await pool.connect();

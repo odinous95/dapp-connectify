@@ -30,6 +30,12 @@ export default function Home() {
           >
             Sign Up
           </Link>
+          <Link
+            href={"/sign-in"}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md font-medium text-lg hover:bg-blue-700 dark:bg-gray-700 dark:hover:bg-gray-600 transition"
+          >
+            Sign In
+          </Link>
         </div>
       </div>
     </div>

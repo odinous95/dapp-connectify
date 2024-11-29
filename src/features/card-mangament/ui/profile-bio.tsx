@@ -13,7 +13,18 @@ export function ProfileBio({ biography, name }: ProfileBioProps) {
         <p className="text-lg text-gray-800 dark:text-white">{biography}</p>
       ) : (
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          No biography available yet
+          | Web Developer
+        </p>
+      )}
+
+      <h3 className="text-sm font-semibold text-black dark:text-white">
+        TECH STACK
+      </h3>
+      {biography ? (
+        <p className="text-lg text-gray-800 dark:text-white">{biography}</p>
+      ) : (
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          NEXTJS | React | Postgres | AWS | Drizzle
         </p>
       )}
     </div>
