@@ -17,6 +17,7 @@ import { platformFeature } from "@/features/platform-mangament";
 import { userFeature } from "@/features/user-managment";
 import { UserProfile } from "@/features/user-managment/ui";
 import { Logo } from "@/ui/components";
+import { BiLinkExternal } from "react-icons/bi";
 
 type JWTPayload = {
   payload: {
@@ -85,6 +86,22 @@ export default async function UserProfilePage({
               <QRCodeCard userId={userId} />
             </div>
           </div>
+          <Link
+            href={`mailto:${userProfile?.email}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="mt-3 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
+              <div className="px-8 py-8 mt-3 text-gray-500 rounded-2xl bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
+                <div className="flex flex-wrap items-start sm:space-x-6 sm:flex-nowrap text-yellow-700 text-xl hover:text-gray-500">
+                  <BiLinkExternal size={25} className="mr-4" />
+                  <span className="text-lg font-semibold">
+                    {userProfile?.email}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
           {platforms &&
             platforms.map((item) => (
               <ProfileSocialLink key={item.id} platform={item} />
