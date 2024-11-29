@@ -10,6 +10,7 @@ export const seedUsers = async (count: number) => {
       name: faker.person.fullName(),
       email: faker.internet.email(),
       password: `user${i + 1}@gmfasAAdf!!!il.com`,
+      profileImageUrl: faker.image.avatar(),
     });
   }
   for (const user of users) {
@@ -61,7 +62,7 @@ export const seedPlatforms = async () => {
 };
 
 const seedAllData = async () => {
-  await seedUsers(50);
+  await seedUsers(10);
   await seedPlatforms();
   console.log("Hurrra! Seeding all data is donne!");
 };

@@ -13,7 +13,6 @@ export const userTable = pgTable("user", {
   status: text("status"),
   biography: text("biography"),
   profileImageUrl: varchar("profile_image_url", { length: 1024 }),
-  qrImageUrl: varchar("qr_image_url", { length: 1024 }),
 });
 
 export const userSocialLinksTable = pgTable("user_social_links", {

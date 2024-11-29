@@ -13,7 +13,7 @@ export function ProfileBio({ biography, name }: ProfileBioProps) {
         <p className="text-lg text-gray-800 dark:text-white">{biography}</p>
       ) : (
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          | Web Developer
+          Web Developer
         </p>
       )}
 
