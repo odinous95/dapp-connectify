@@ -7,7 +7,7 @@ export const seedUsers = async (count: number) => {
   for (let i = 0; i < count; i++) {
     console.log(`Seeding user ${i + 1}`);
     users.push({
-      name: faker.person.fullName(),
+      name: faker.person.firstName(),
       email: faker.internet.email(),
       password: `user${i + 1}@gmfasAAdf!!!il.com`,
       profileImageUrl: faker.image.avatar(),

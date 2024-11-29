@@ -27,6 +27,7 @@ export function UserProfile({ loggedUser }: Props) {
     <div className="relative">
       <div className="flex items-center space-x-4">
         <div className="relative">
+          <span className="bg-green-800 rounded-full">0</span>
           <button onClick={toggleDropdown}>
             <Image
               src={loggedUser?.profileImageUrl || "/profile-placeholder.svg"}
@@ -37,17 +38,16 @@ export function UserProfile({ loggedUser }: Props) {
             />
           </button>
         </div>
-        <span className="bg-green-800 rounded-full">O</span>
       </div>
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-1 text-gray-700 border border-gray-200">
           <Link href={`/user-card/${loggedUser?.id}`}>
-            <div className="hover:bg-gray-100 p-2 cursor-pointer flex items-center space-x-2 bg-gray-100 my-1 border-b border-black">
+            <div className="hover:bg-gray-100 p-2 cursor-pointer flex items-center space-x-2 my-1 border-b border-gray-300">
               <span className="font-semibold text-sm">{loggedUser?.name}</span>
             </div>
           </Link>
           <Link href={`/user-card/${loggedUser?.id}`}>
-            <div className="hover:bg-gray-100 p-2 cursor-pointer flex items-center space-x-2 bg-gray-100  my-1 border-b border-black">
+            <div className="hover:bg-gray-100 p-2 cursor-pointer flex items-center space-x-2  my-1 border-b border-gray-300">
               <span className="text-sm">{loggedUser?.email}</span>
             </div>
           </Link>
