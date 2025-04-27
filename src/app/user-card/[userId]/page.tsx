@@ -1,4 +1,4 @@
-import { cardFeature } from "@/features/card-mangament";
+import { cardFeature } from "@/features/private-card-mangament";
 import Image from "next/image";
 import Link from "next/link";
 import { Page } from "@/global-ui/pages-layout";
@@ -6,7 +6,7 @@ import {
   ProfileCardAdmin,
   ProfileCardUser,
   QRCodeCard,
-} from "@/features/card-mangament/ui";
+} from "@/features/private-card-mangament/ui";
 import {
   AddPlatform,
   ProfileSocialLink,
