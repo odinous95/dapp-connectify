@@ -1,4 +1,4 @@
-import { userFeature } from "@/features/user-managment";
+import { authFeature } from "@/features/auth";
 import { platformFeature } from "@/features/platform-mangament";
 import { faker } from "@faker-js/faker";
 
@@ -14,15 +14,14 @@ export const seedUsers = async (count: number) => {
     });
   }
   for (const user of users) {
-    await userFeature.service.signup(user);
+    await authFeature.service.signup(user);
     console.log("users seeded successfully");
   }
 };
 
 export const seedPlatforms = async () => {
   try {
-    const users = await userFeature.service.getAllUsers();
-
+    const users = await authFeature.service.getAllUsers();
     const samplePlatforms = [
       { platformName: "GitHub", platformUrl: "https://github.com" },
       { platformName: "LinkedIn", platformUrl: "https://linkedin.com" },

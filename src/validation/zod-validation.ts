@@ -8,17 +8,6 @@ const nameSchema = z
 const emailSchema = z.string().email("Correct email is required");
 
 const passwordSchema = z.string();
-// .min(8, "Your password should be at least 8 characters!")
-// .max(40, "Your password should be at most 40 characters!")
-// .refine(
-//   (val) => /[A-Z]/.test(val),
-//   "Your password must contain at least one uppercase letter!"
-// )
-// .refine(
-//   (val) => /[!@#$%^&*(),.?":{}|<>]/.test(val),
-//   "Your password must contain at least one special character!"
-// );
-
 export const signUpSchema = z.object({
   name: nameSchema,
   email: emailSchema,

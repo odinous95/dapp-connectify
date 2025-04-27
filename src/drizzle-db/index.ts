@@ -7,11 +7,11 @@ import { drizzle } from "drizzle-orm/node-postgres";
 // });
 
 const pool = new Pool({
-  user: "levantisk",
-  password: "le123123321!",
+  user: "blockapp",
+  password: "secretpass123",
   host: "odinobusi.online",
   port: 5432,
-  database: "levantisk",
+  database: "blockchain_db",
 });
 
 // const pool = new Pool({

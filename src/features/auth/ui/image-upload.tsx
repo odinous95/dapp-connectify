@@ -4,8 +4,8 @@ import { useState, useRef, useActionState } from "react";
 import DefaultImage from "@/public/profile-placeholder.svg";
 import EditIcon from "@/public/edit.svg";
 import Image from "next/image";
-import { imageUploadAction } from "../actions";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { imageUploadAction } from "../actionsssss";
 
 type Props = {
   profileImg: string | null;
@@ -94,18 +94,16 @@ export function ImageInput({ userId, profileImg }: Props) {
       </form>
       {state && (
         <div
-          className={`mt-4 flex items-center space-x-2 rounded-md p-3 text-sm ${
-            state.success
-              ? "bg-green-50 text-green-600"
-              : "bg-red-50 text-red-600"
-          }`}
+          className={`mt-4 flex items-center space-x-2 rounded-md p-3 text-sm ${state.success
+            ? "bg-green-50 text-green-600"
+            : "bg-red-50 text-red-600"
+            }`}
           aria-live="polite"
           aria-atomic="true"
         >
           <ExclamationCircleIcon
-            className={`h-5 w-5 ${
-              state.success ? "text-green-500" : "text-red-500"
-            }`}
+            className={`h-5 w-5 ${state.success ? "text-green-500" : "text-red-500"
+              }`}
           />
           <strong>{state.message}</strong>
         </div>

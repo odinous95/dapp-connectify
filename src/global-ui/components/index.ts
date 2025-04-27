@@ -5,3 +5,4 @@ export * from "./loader";
 export * from "./submit-button";
 export * from "./logo";
 export * from "./footer";
+export * from "./AlertMessage";

@@ -1,4 +1,4 @@
-import { userIdSchema } from "@/zod/zod-validation";
+import { userIdSchema } from "@/validation/zod-validation";
 import { Repository } from "./repository";
 
 export function createService(repository: Repository) {

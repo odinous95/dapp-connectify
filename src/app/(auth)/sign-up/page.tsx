@@ -1,5 +1,6 @@
-import { SignUpForm } from "@/features/user-managment/ui";
-import { Page } from "@/ui/pages-layout";
+
+import { SignUpForm } from "@/features/auth/ui";
+import { Page } from "@/global-ui/pages-layout";
 
 export default function Signup() {
   return (

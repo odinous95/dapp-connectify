@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { addPlatformAction } from "../actions";
-import { Input, SubmitButton } from "@/ui/components";
+import { Input, SubmitButton } from "@/global-ui/components";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 type Props = {
   userId: string;
@@ -51,16 +51,14 @@ export function AddPlatform({ userId }: Props) {
               <SubmitButton title={"Add Platform"} pending={isPending} />
               {state && (
                 <div
-                  className={`mt-1 flex items-center space-x-2 rounded-md p-1 text-sm ${
-                    state.success ? "text-green-600" : "text-red-600"
-                  }`}
+                  className={`mt-1 flex items-center space-x-2 rounded-md p-1 text-sm ${state.success ? "text-green-600" : "text-red-600"
+                    }`}
                   aria-live="polite"
                   aria-atomic="true"
                 >
                   <ExclamationCircleIcon
-                    className={`h-5 w-5 ${
-                      state.success ? "text-green-500" : "text-red-500"
-                    }`}
+                    className={`h-5 w-5 ${state.success ? "text-green-500" : "text-red-500"
+                      }`}
                   />
                   <strong>{state.message}</strong>
                 </div>

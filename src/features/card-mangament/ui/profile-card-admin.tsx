@@ -1,4 +1,4 @@
-import { ImageInput } from "@/features/user-managment/ui";
+import { ImageInput } from "@/features/auth/ui";
 import { PROFILE } from "../types";
 import { ProfileBio } from "./profile-bio";
 

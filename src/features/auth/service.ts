@@ -1,9 +1,9 @@
-import { signInSchema, signUpSchema } from "@/zod/zod-validation";
+import { signInSchema, signUpSchema } from "@/validation/zod-validation";
 import { Repository } from "./repository";
 import { SIGNUP_ERRORS, SIGNUP_PAYLOAD, SIGNIN_PAYLOAD } from "./types";
-import { createSession } from "../../lib/session";
+import { createSession } from "./actions";
 
-export function createService(repository: Repository) {
+export function createAuthService(repository: Repository) {
   async function signup({ email, password, name }: SIGNUP_PAYLOAD) {
     const userValidated = signUpSchema.safeParse({ email, password, name });
     if (!userValidated.success) {

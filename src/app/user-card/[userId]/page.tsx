@@ -1,8 +1,7 @@
 import { cardFeature } from "@/features/card-mangament";
 import Image from "next/image";
 import Link from "next/link";
-import { Page } from "@/ui/pages-layout";
-import { getSession } from "../../../lib/session";
+import { Page } from "@/global-ui/pages-layout";
 import {
   ProfileCardAdmin,
   ProfileCardUser,
@@ -13,11 +12,11 @@ import {
   ProfileSocialLink,
 } from "@/features/platform-mangament/ui";
 import { platformFeature } from "@/features/platform-mangament";
-
-import { userFeature } from "@/features/user-managment";
-import { UserProfile } from "@/features/user-managment/ui";
-import { Logo } from "@/ui/components";
+import { authFeature } from "@/features/auth";
+import { UserProfile } from "@/features/auth/ui";
+import { Logo } from "@/global-ui/components";
 import { BiLinkExternal } from "react-icons/bi";
+import { getSession } from "@/features/auth/actions/getSession";
 
 type JWTPayload = {
   payload: {
@@ -54,9 +53,9 @@ export default async function UserProfilePage({
   }
   const platforms = await platformFeature.service.getPlatformsByUserId(userId);
   const loggedUser = sessionUserId
-    ? await userFeature.service.getLoggedInUser(sessionUserId)
+    ? await authFeature.service.getLoggedInUser(sessionUserId)
     : null;
-  const users = await userFeature.service.getAllUsers();
+  const users = await authFeature.service.getAllUsers();
   return (
     <Page title="">
       <section className="flex flex-col items-center justify-center py-10">

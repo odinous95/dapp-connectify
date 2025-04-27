@@ -1,9 +1,9 @@
 "use client";
 import { useActionState } from "react";
-import { signupAction } from "../actions";
-import { Heading, Input, SubmitButton } from "@/ui/components";
+import { Heading, Input, SubmitButton } from "@/global-ui/components";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { FormRedirect } from ".";
+import { signupAction } from "../actions";
 
 export function SignUpForm() {
   const [state, formAction, isPending] = useActionState(signupAction, null);
@@ -63,20 +63,18 @@ export function SignUpForm() {
 
             {state && (
               <div
-                className={`mt-4 flex items-center space-x-2 rounded-md p-3 text-sm ${
-                  state.success
-                    ? "bg-green-50 text-green-600 dark:bg-green-900 dark:text-green-400"
-                    : "bg-red-50 text-red-600 dark:bg-red-900 dark:text-red-400"
-                }`}
+                className={`mt-4 flex items-center space-x-2 rounded-md p-3 text-sm ${state.success
+                  ? "bg-green-50 text-green-600 dark:bg-green-900 dark:text-green-400"
+                  : "bg-red-50 text-red-600 dark:bg-red-900 dark:text-red-400"
+                  }`}
                 aria-live="polite"
                 aria-atomic="true"
               >
                 <ExclamationCircleIcon
-                  className={`h-5 w-5 ${
-                    state.success
-                      ? "text-green-500 dark:text-green-400"
-                      : "text-red-500 dark:text-red-400"
-                  }`}
+                  className={`h-5 w-5 ${state.success
+                    ? "text-green-500 dark:text-green-400"
+                    : "text-red-500 dark:text-red-400"
+                    }`}
                 />
                 <strong>{state.message}</strong>
               </div>

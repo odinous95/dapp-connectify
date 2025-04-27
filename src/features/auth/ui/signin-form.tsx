@@ -1,7 +1,7 @@
 "use client";
 import { useActionState } from "react";
 import { signinAction } from "../actions";
-import { Heading, Input, SubmitButton } from "@/ui/components";
+import { AlertMessage, Heading, Input, SubmitButton } from "@/global-ui/components";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { FormRedirect } from "./form-redirect";
 
@@ -43,24 +43,8 @@ export function LoginForm() {
               aria-disabled={isPending}
               pending={isPending}
             />
-            {state && (
-              <div
-                className={`mt-4 flex items-center space-x-2 rounded-md p-3 text-sm ${
-                  state.success
-                    ? "bg-green-50 text-green-600 dark:bg-green-900 dark:text-green-300"
-                    : "bg-red-50 text-red-600 dark:bg-red-900 dark:text-red-300"
-                }`}
-                aria-live="polite"
-                aria-atomic="true"
-              >
-                <ExclamationCircleIcon
-                  className={`h-5 w-5 ${
-                    state.success ? "text-green-500" : "text-red-500"
-                  }`}
-                />
-                <strong>{state.message}</strong>
-              </div>
-            )}
+
+            {state && <AlertMessage state={state} />}
           </form>
         </div>
         <FormRedirect

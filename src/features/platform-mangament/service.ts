@@ -1,4 +1,4 @@
-import { platformSchema } from "@/zod/zod-validation";
+import { platformSchema } from "@/validation/zod-validation";
 import { Repository } from "./repository";
 import { PLATFORM_PAYLOAD, PLATFRORM_ERRORS } from "./types";
 
