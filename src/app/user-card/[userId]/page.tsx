@@ -1,4 +1,4 @@
-import { cardFeature } from "@/features/private-card-mangament";
+import { cardFeature } from "@/features/private-card";
 import Image from "next/image";
 import Link from "next/link";
 import { Page } from "@/global-ui/pages-layout";
@@ -6,12 +6,12 @@ import {
   ProfileCardAdmin,
   ProfileCardUser,
   QRCodeCard,
-} from "@/features/private-card-mangament/ui";
+} from "@/features/private-card/ui";
 import {
   AddPlatform,
   ProfileSocialLink,
-} from "@/features/platform-mangament/ui";
-import { platformFeature } from "@/features/platform-mangament";
+} from "@/features/platform/ui";
+import { platformFeature } from "@/features/platform";
 import { authFeature } from "@/features/auth";
 import { UserProfile } from "@/features/auth/ui";
 import { Logo } from "@/global-ui/components";

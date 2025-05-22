@@ -1,16 +1,60 @@
-import React from "react";
+import Link from 'next/link';
+import { siteDetails } from '@/data/siteDetails';
+import { footerDetails } from '@/data/footer';
+import { Logo } from './logo';
+import { getPlatformIconByName } from '@/utils/utils';
 
 export function Footer() {
   return (
-    <>
-      <hr className="border-gray-200" />
-      <div className="flex flex-wrap items-center md:justify-between justify-center bg-gray-600 text-white">
-        <div className="w-full md:w-4/12 px-4 mx-auto text-center">
-          <div className="text-sm font-semibold py-1 ">
-            Copyright © {new Date().getFullYear()} | Connectify
-          </div>
+    <footer className="bg-hero-background text-foreground py-10 bg-gray100 dark:bg-gray-700">
+      <div className="max-w-7xl w-full mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div>
+          <span className="flex items-center gap-2">
+            <Logo />
+            <h3 className="manrope text-xl font-semibold cursor-pointer">
+              {siteDetails.siteName}
+            </h3>
+          </span>
+          <p className="mt-3.5 text-foreground-accent">
+            {footerDetails.subheading}
+          </p>
+        </div>
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul className="text-foreground-accent">
+            {footerDetails.quickLinks.map(link => (
+              <li key={link.text} className="mb-2">
+                <Link href={link.url} className="hover:text-foreground">{link.text}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
+          {footerDetails.email && <a href={`mailto:${footerDetails.email}`} className="block text-foreground-accent hover:text-foreground">Email: {footerDetails.email}</a>}
+          {footerDetails.telephone && <a href={`tel:${footerDetails.telephone}`} className="block text-foreground-accent hover:text-foreground">Phone: {footerDetails.telephone}</a>}
+          {footerDetails.socials && (
+            <div className="mt-5 flex items-center gap-5 flex-wrap">
+              {Object.keys(footerDetails.socials).map(platformName => {
+                if (platformName && footerDetails.socials[platformName]) {
+                  return (
+                    <Link
+                      href={footerDetails.socials[platformName]}
+                      key={platformName}
+                      aria-label={platformName}
+                    >
+                      {getPlatformIconByName(platformName)}
+                    </Link>
+                  )
+                }
+              })}
+            </div>
+          )}
         </div>
       </div>
-    </>
+      <div className="mt-8 md:text-center text-foreground-accent px-6">
+        <p>Copyright &copy; {new Date().getFullYear()} {siteDetails.siteName}. All rights reserved.</p>
+      </div>
+    </footer>
   );
 }

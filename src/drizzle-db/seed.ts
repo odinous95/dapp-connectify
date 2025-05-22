@@ -1,5 +1,5 @@
 import { authFeature } from "@/features/auth";
-import { platformFeature } from "@/features/platform-mangament";
+import { platformFeature } from "@/features/platform";
 import { faker } from "@faker-js/faker";
 
 export const seedUsers = async (count: number) => {
