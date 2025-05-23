@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 import { Logo } from './logo';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ThemeToggler } from './ToggleTheme';
+import { SignInWeb3 } from '@/features/auth/ui';
 
 export function Header() {
     return (
@@ -12,12 +12,12 @@ export function Header() {
                 <Logo />
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center">
-                    <ConnectButton label="Connect" />
+                    <SignInWeb3 />
                     <ThemeToggler />
                 </div>
                 {/* Mobile Menu Button */}
                 <div className="md:hidden flex items-center">
-                    <ConnectButton label="Connect" />
+                    {/* <ConnectButton label="Connect" /> */}
                     <ThemeToggler />
                 </div>
             </nav>
