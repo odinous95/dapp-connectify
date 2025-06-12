@@ -5,7 +5,7 @@
 // // import { authFeature } from "@/features/auth";
 // // import Image from "next/image";
 // import Link from "next/link";
-// import { Page } from "@/global-ui/pages-layout";
+
 // import { ProfileCardAdmin, ProfileCardUser, QRCodeCard } from "@/features/private-card/ui";
 // // import { AddPlatform, ProfileSocialLink } from "@/features/platform/ui";
 // // import { UserProfile } from "@/features/auth/ui";
@@ -120,22 +120,12 @@
 
 
 
-
-// app/protected/page.tsx
-import { auth } from '@/auth.config';
-import { redirect } from 'next/navigation';
-
-export default async function ProtectedPage() {
-  const session = await auth();
-
-  if (!session || !session.address) {
-    redirect('/');
-  }
-
+import { Page } from "@/global-ui/pages-layout";
+export default async function UserProfilePage() {
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Protected Page</h1>
-      <p>Welcome, Ethereum address: <strong>{session.address}</strong></p>
-    </div>
+    <Page title="">
+      <h1 className="text-2xl font-bold mb-4">public Page</h1>
+      <p>Welcome, Ethereum address: <strong>Public</strong></p>
+    </Page>
   );
 }
