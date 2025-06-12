@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { imageUploadAction } from "../actions";
 
+
 type Props = {
   profileImg: string | null;
   userId: number;
@@ -73,8 +74,8 @@ export function ImageInput({ userId, profileImg }: Props) {
         </div>
         <input
           type="file"
-          id="imagefile"
-          name="imagefile"
+          id="image"
+          name="image"
           ref={fileUploadRef}
           hidden
           accept="image/*"

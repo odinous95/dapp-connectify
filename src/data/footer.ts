@@ -7,11 +7,12 @@ export const footerDetails: {
   telephone: string;
   socials: ISocials;
 } = {
-  subheading: "Empowering businesses with cutting-edge battery technology.",
+  subheading:
+    "Connectify leverages blockchain to create secure, decentralized connections for the future of networking..",
   quickLinks: [
     {
-      text: "The Team",
-      url: "#testimonials",
+      text: "",
+      url: "",
     },
   ],
   email: "info@levantisk.com",

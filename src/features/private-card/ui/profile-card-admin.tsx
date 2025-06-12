@@ -1,5 +1,6 @@
-import { ImageInput } from "@/features/auth/ui";
+
 import { PROFILE } from "../types";
+import { ImageInput } from "./image-upload";
 import { ProfileBio } from "./profile-bio";
 
 type Props = {

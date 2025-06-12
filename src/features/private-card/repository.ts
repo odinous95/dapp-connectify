@@ -17,9 +17,16 @@ export function createRepository() {
       .where(eq(userTable.id, Number(userId)));
     return userProfile;
   }
+  async function setProfileImageUrlInDb(userId: number, imageUrl: string) {
+    await db
+      .update(userTable)
+      .set({ profileImageUrl: imageUrl })
+      .where(eq(userTable.id, userId));
+  }
 
   return {
     getUserProfileByIdFromDb,
+    setProfileImageUrlInDb,
   };
 }
 

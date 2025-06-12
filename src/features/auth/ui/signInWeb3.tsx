@@ -1,9 +1,10 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAccount, useSignMessage, useChainId } from 'wagmi';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { SiweMessage } from 'siwe';
+import { useRouter } from 'next/navigation';
 
 export function SignInWeb3() {
     const { data: session } = useSession();
@@ -12,18 +13,13 @@ export function SignInWeb3() {
     const { signMessageAsync } = useSignMessage();
     const [loading, setLoading] = useState(false);
     const [loginTriggered, setLoginTriggered] = useState(false);
-    useEffect(() => {
-        if (isConnected && loginTriggered && address && chainId && !session?.address) {
-            handleLogin();
-        }
-    }, [isConnected, loginTriggered, address, chainId, session]);
+    const router = useRouter();
 
-    const handleLogin = async () => {
+    const handleLogin = useCallback(async () => {
         try {
             setLoading(true);
             const nonceRes = await fetch('/api/siwe/nonce');
             const { nonce } = await nonceRes.json();
-
             const message = new SiweMessage({
                 domain: window.location.host,
                 address,
@@ -41,12 +37,13 @@ export function SignInWeb3() {
             const res = await signIn('credentials', {
                 message: JSON.stringify(message),
                 signature,
-                redirect: false,
+                redirect: true,
             });
 
             if (!res?.ok) {
                 throw new Error('SIWE sign-in failed');
             }
+            router.push('/private-profile');
         } catch (err) {
             console.error(err);
             alert('Sign-in failed');
@@ -54,28 +51,41 @@ export function SignInWeb3() {
             setLoading(false);
             setLoginTriggered(false); // reset trigger
         }
-    };
+    }, [address, chainId, router, setLoading, setLoginTriggered, signMessageAsync]);
+
+    useEffect(() => {
+        if (isConnected && loginTriggered && address && chainId && !session?.address) {
+            handleLogin();
+        }
+    }, [isConnected, loginTriggered, address, chainId, session, handleLogin]);
 
     return (
-        <div>
+        <>
             {!isConnected ? (
-                <div onClick={() => setLoginTriggered(true)}>
-                    <ConnectButton />
+                <div className="cursor-pointer">
+                    <ConnectButton label="Connect" chainStatus="none" showBalance={false} />
                 </div>
             ) : session?.address ? (
                 <div>
-                    <button onClick={() => {
-                        signOut();
-                        setLoginTriggered(false);
-                    }}>
+                    <button
+                        onClick={() => {
+                            signOut();
+                            setLoginTriggered(false);
+                        }}
+                        className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded transition-colors duration-200"
+                    >
                         Sign out
                     </button>
                 </div>
             ) : (
-                <button onClick={() => setLoginTriggered(true)} disabled={loading}>
-                    {loading ? 'Connecting...' : 'Sign-In'}
+                <button
+                    onClick={() => setLoginTriggered(true)}
+                    disabled={loading}
+                    className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                    {loading ? 'Connecting...' : 'Sign In'}
                 </button>
             )}
-        </div>
+        </>
     );
 }

@@ -1,9 +1,9 @@
 "use server";
-import { imageFileSchema } from "@/validation/zod-validation";
-import { uploadFileToS3 } from "@/lib/upload-image-aws";
-import { revalidatePath } from "next/cache";
 import { sanitizeFileName } from "@/lib/sanitize-file-name";
-import { authFeature } from "./feature";
+import { uploadFileToS3 } from "@/lib/upload-image-aws";
+import { imageFileSchema } from "@/validation/zod-validation";
+import { revalidatePath } from "next/cache";
+
 export async function imageUploadAction(preState: unknown, payload: FormData) {
   const file = payload.get("imagefile") as File;
   const userId = parseInt(payload.get("userId") as string, 10);
@@ -27,13 +27,13 @@ export async function imageUploadAction(preState: unknown, payload: FormData) {
   const bufferData = Buffer.from(buffer);
   const fileNameSanitized = sanitizeFileName(file.name);
   const key = `${Date.now()}_${fileNameSanitized}`;
-  const bucketName = "conncitfy-bucket-salt";
+  // const bucketName = "conncitfy-bucket-salt";
 
   return uploadFileToS3("conncitfy-bucket-salt", key, bufferData)
     .then(async (response) => {
-      const profileImageUrl = `https://${bucketName}.s3.eu-north-1.amazonaws.com/${key}`;
-      await authFeature.service.setProfileImageUrl(userId, profileImageUrl);
-      console.log(response);
+      // const profileImageUrl = `https://${bucketName}.s3.eu-north-1.amazonaws.com/${key}`;
+      // await authFeature.service.setProfileImageUrl(userId, profileImageUrl);
+      // console.log(response);
 
       if (response) {
         revalidatePath(`/user-card/${userId}`);

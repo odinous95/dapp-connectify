@@ -1,9 +1,7 @@
-import { createRepository } from "./repository";
 import { createAuthService } from "./service";
 
 function craeteAuthFeature() {
-  const repository = createRepository();
-  const service = createAuthService(repository);
+  const service = createAuthService();
   return {
     service,
   };

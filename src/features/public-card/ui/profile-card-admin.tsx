@@ -1,4 +1,5 @@
-import { ImageInput } from "@/features/auth/ui";
+
+import { ImageInput } from "@/features/private-card/ui/image-upload";
 import { PROFILE } from "../types";
 import { ProfileBio } from "./profile-bio";
 

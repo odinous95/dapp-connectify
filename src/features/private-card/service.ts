@@ -23,8 +23,12 @@ export function createService(repository: Repository) {
       };
     }
   }
+  async function setProfileImageUrl(userId: number, imageUrl: string) {
+    await repository.setProfileImageUrlInDb(userId, imageUrl);
+  }
 
   return {
     getUserProfileById,
+    setProfileImageUrl,
   };
 }
