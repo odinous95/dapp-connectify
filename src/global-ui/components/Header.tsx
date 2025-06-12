@@ -17,7 +17,7 @@ export function Header() {
                 </div>
                 {/* Mobile Menu Button */}
                 <div className="md:hidden flex items-center gap-2">
-                    {/* <ConnectButton label="Connect" /> */}
+                    <SignInWeb3 />
                     <ThemeToggler />
                 </div>
             </nav>

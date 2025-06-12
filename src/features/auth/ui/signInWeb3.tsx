@@ -37,7 +37,7 @@ export function SignInWeb3() {
             const res = await signIn('credentials', {
                 message: JSON.stringify(message),
                 signature,
-                redirect: true,
+                redirect: false,
             });
 
             if (!res?.ok) {
